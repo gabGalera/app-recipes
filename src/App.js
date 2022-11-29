@@ -3,7 +3,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/Login';
+import Login from './pages/Login';
 import store from './redux';
 
 function App() {
