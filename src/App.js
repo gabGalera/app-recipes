@@ -2,8 +2,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from './pages/Login';
 import './App.css';
-import Login from './components/Login';
 import store from './redux';
 
 function App() {
