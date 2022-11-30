@@ -1,15 +1,15 @@
-export const ingredientApi = async (ingrediente) => {
+export const ingredientApi = async (ingrediente = 'carrot') => {
   const url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
   const reponse = await fetch(url);
   const result = await reponse.json();
-  return result;
+  return result.meals === null || undefined ? [] : result.meals;
 };
 
 export const nameApi = async (name) => {
   const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
   const reponse = await fetch(url);
   const result = await reponse.json();
-  return result;
+  return result.meals === null || undefined ? [] : result.meals;
 };
 
 export const firstLetterApi = async (firstLetter) => {
@@ -17,22 +17,23 @@ export const firstLetterApi = async (firstLetter) => {
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
     const reponse = await fetch(url);
     const result = await reponse.json();
-    return result;
+    return result.meals === null || undefined ? [] : result.meals;
   } global.alert('Your search must have only 1 (one) character');
+  return [];
 };
 
 export const ingredientCocktailApi = async (ingrediente) => {
   const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
   const reponse = await fetch(url);
   const result = await reponse.json();
-  return result.drinks;
+  return result.drinks === null || undefined ? [] : result.drinks;
 };
 
 export const nameCocktailApi = async (name) => {
   const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const reponse = await fetch(url);
   const result = await reponse.json();
-  return result.drinks;
+  return result.drinks === null || undefined ? [] : result.drinks;
 };
 
 export const firstLetterCocktailApi = async (firstLetter) => {
@@ -40,6 +41,7 @@ export const firstLetterCocktailApi = async (firstLetter) => {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
     const reponse = await fetch(url);
     const result = await reponse.json();
-    return result.drinks;
+    return result.drinks === null || undefined ? [] : result.drinks;
   } global.alert('Your search must have only 1 (one) character');
+  return [];
 };
