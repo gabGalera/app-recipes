@@ -39,34 +39,32 @@ export default class Login extends Component {
     const { handleChange, handleClick } = this;
     return (
       <form>
-        <label htmlFor="login-form">
-          <input
-            type="email"
-            name="email"
-            value={ email }
-            id="email-input"
-            placeholder="Digite seu email"
-            data-testid="email-input"
-            onChange={ handleChange }
-          />
-          <input
-            type="password"
-            name="password"
-            value={ password }
-            id="passoword-input"
-            placeholder="Digite sua senha"
-            data-testid="password-input"
-            onChange={ handleChange }
-          />
-          <button
-            data-testid="login-submit-btn"
-            type="submit"
-            onClick={ handleClick }
-            disabled={ buttonDisabled }
-          >
-            Enter
-          </button>
-        </label>
+        <input
+          type="email"
+          name="email"
+          value={ email }
+          id="email-input"
+          placeholder="Digite seu email"
+          data-testid="email-input"
+          onChange={ handleChange }
+        />
+        <input
+          type="password"
+          name="password"
+          value={ password }
+          id="passoword-input"
+          placeholder="Digite sua senha"
+          data-testid="password-input"
+          onChange={ handleChange }
+        />
+        <button
+          data-testid="login-submit-btn"
+          type="submit"
+          onClick={ handleClick }
+          disabled={ buttonDisabled }
+        >
+          Enter
+        </button>
       </form>
     );
   }

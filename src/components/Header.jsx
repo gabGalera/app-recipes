@@ -12,14 +12,8 @@ function Header({ title, search }) {
         type="button"
         onClick={ () => history.push('/profile') }
       >
-        <object
-          className="userIcon"
-          type="image/svg+xml"
-          data={ userIcon }
-          data-testid="profile-top-btn"
-        >
-          userIcon
-        </object>
+        <img src={ userIcon } alt="" data-testid="profile-top-btn" />
+
       </button>
       {search && <SearchBar />}
       <h1 data-testid="page-title">{title}</h1>
