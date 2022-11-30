@@ -15,11 +15,11 @@
   max-height: 80vh;
 }
 
-.footer  {
-  position: fixed;
+.footer {
   bottom: 0;
-  width: 100%;
+  position: fixed;
   height: 100px;
+  width: 100%;
   text-align: center;
 }
 
