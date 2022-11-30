@@ -5,6 +5,7 @@ import { firstLetterApi, firstLetterCocktailApi, ingredientApi, ingredientCockta
   nameApi, nameCocktailApi } from '../services/searchApi';
 
 function SearchBar() {
+  const maxArrayLength = 12;
   const [searchInput, setSearchInput] = useState('');
   const [typeRadio, setTypeRadio] = useState('');
   const [resultSearch, setResultSearch] = useState([]);
@@ -101,7 +102,7 @@ function SearchBar() {
           onChange={ ({ target: { value } }) => setSearchInput(value) }
         />
       </label>
-      {resultSearch.map((recipe, index) => {
+      {resultSearch.slice(0, maxArrayLength).map((recipe, index) => {
         if (pathname === '/meals') {
           return (
             <div key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
