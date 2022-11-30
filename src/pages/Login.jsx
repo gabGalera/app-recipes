@@ -42,26 +42,26 @@ export default class Login extends Component {
         <input
           type="email"
           name="email"
-          value={email}
+          value={ email }
           id="email-input"
           placeholder="Digite seu email"
           data-testid="email-input"
-          onChange={handleChange}
+          onChange={ handleChange }
         />
         <input
           type="password"
           name="password"
-          value={password}
+          value={ password }
           id="passoword-input"
           placeholder="Digite sua senha"
           data-testid="password-input"
-          onChange={handleChange}
+          onChange={ handleChange }
         />
         <button
           data-testid="login-submit-btn"
           type="submit"
-          onClick={handleClick}
-          disabled={buttonDisabled}
+          onClick={ handleClick }
+          disabled={ buttonDisabled }
         >
           Enter
         </button>

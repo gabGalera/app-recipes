@@ -12,15 +12,15 @@ import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={ store }>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/meals" component={Recipes} />
-          <Route exact path="/drinks" component={Recipes} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/done-recipes" component={DoneRecipes} />
-          <Route path="/favorite-recipes" component={FavoriteRecipes} />
+          <Route exact path="/" component={ Login } />
+          <Route exact path="/meals" component={ Recipes } />
+          <Route exact path="/drinks" component={ Recipes } />
+          <Route path="/profile" component={ Profile } />
+          <Route path="/done-recipes" component={ DoneRecipes } />
+          <Route path="/favorite-recipes" component={ FavoriteRecipes } />
         </Switch>
       </BrowserRouter>
     </Provider>
