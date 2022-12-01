@@ -17,10 +17,10 @@
 
 .footer {
   bottom: 0;
-  position: fixed;
   height: 100px;
-  width: 100%;
+  position: fixed;
   text-align: center;
+  width: 100%;
 }
 
 /*
