@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+const copy = require('clipboard-copy');
+
 function DrinksDetails({
   API, renderIngredients, recommendations, doneRecipes, id, inProgressRecipes }) {
   return (
@@ -9,6 +11,11 @@ function DrinksDetails({
       <button
         type="button"
         data-testid="share-btn"
+        onClick={ () => {
+          copy(window.location.href);
+          const messageElement = document.getElementById('share-message');
+          messageElement.innerText = 'Link copied!';
+        } }
       >
         Share Recipe
       </button>
@@ -18,11 +25,14 @@ function DrinksDetails({
       >
         Favorite
       </button>
-      <img
-        src={ API[0].strDrinkThumb }
-        alt={ API[0].strDrink }
-        data-testid="recipe-photo"
-      />
+      <div>
+        <p id="share-message" />
+        <img
+          src={ API[0].strDrinkThumb }
+          alt={ API[0].strDrink }
+          data-testid="recipe-photo"
+        />
+      </div>
       <p data-testid="recipe-title">{API[0].strDrink}</p>
       <p data-testid="recipe-category">{API[0].strAlcoholic}</p>
       {renderIngredients()}

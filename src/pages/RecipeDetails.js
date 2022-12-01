@@ -98,6 +98,7 @@ function RecipeDetails() {
       doneRecipes={ doneRecipes }
       id={ id }
       inProgressRecipes={ inProgressRecipes }
+
     />);
   }
 
