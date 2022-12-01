@@ -92,6 +92,18 @@ function RecipeDetails() {
   if (isFood) {
     return (
       <div>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          Share Recipe
+        </button>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          Favorite
+        </button>
         <img
           src={ API[0].strMealThumb }
           alt={ API[0].strMeal }
@@ -169,6 +181,18 @@ function RecipeDetails() {
 
   return (
     <div>
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        Share Recipe
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        Favorite
+      </button>
       <img
         src={ API[0].strDrinkThumb }
         alt={ API[0].strDrink }
