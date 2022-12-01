@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const copy = require('clipboard-copy');
 
-function MealsDetails({
-  API, renderIngredients, recommendations, doneRecipes, id, inProgressRecipes,
-}) {
+function DrinksDetails({
+  API, renderIngredients, recommendations, doneRecipes, id, inProgressRecipes }) {
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+
+  useEffect(() => {
+    setFavoriteRecipes(JSON
+      .parse(localStorage.getItem('favoriteRecipes')) ? JSON
+        .parse(localStorage.getItem('favoriteRecipes')) : []);
+  }, []);
+
   return (
     <div>
       <button
@@ -23,21 +30,34 @@ function MealsDetails({
       <button
         type="button"
         data-testid="favorite-btn"
+        onClick={ () => {
+          const newFavoriteRecipes = [].concat(favoriteRecipes);
+          newFavoriteRecipes.push({
+            id: API[0].idDrink,
+            type: 'drink',
+            nationality: '',
+            category: API[0].strCategory,
+            alcoholicOrNot: API[0].strAlcoholic,
+            name: API[0].strDrink,
+            image: API[0].strDrinkThumb,
+          });
+          setFavoriteRecipes(newFavoriteRecipes);
+          localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+          console.log(newFavoriteRecipes);
+        } }
       >
         Favorite
       </button>
       <div>
         <p id="share-message" />
         <img
-          src={ API[0].strMealThumb }
-          alt={ API[0].strMeal }
+          src={ API[0].strDrinkThumb }
+          alt={ API[0].strDrink }
           data-testid="recipe-photo"
         />
       </div>
-      <p data-testid="recipe-title">{API[0].strMeal}</p>
-      <p data-testid="recipe-category">
-        {API[0].strCategory}
-      </p>
+      <p data-testid="recipe-title">{API[0].strDrink}</p>
+      <p data-testid="recipe-category">{API[0].strAlcoholic}</p>
       {renderIngredients()}
       <p data-testid="instructions">{API[0].strInstructions}</p>
       <p data-testid="video">{API[0].strVideo}</p>
@@ -58,12 +78,12 @@ function MealsDetails({
             <div key={ index } data-testid={ `${index}-recommendation-card` }>
               <p data-testid={ `${index}-recommendation-title` }>
                 {
-                  entry.strDrink
+                  entry.strMeal
                 }
               </p>
               <img
-                src={ entry.strDrinkThumb }
-                alt={ entry.strDrink }
+                src={ entry.strMealThumb }
+                alt={ entry.strMeal }
                 style={ {
                   padding: '1vw',
                   width: '180px',
@@ -72,7 +92,7 @@ function MealsDetails({
             </div>
           ))}
       </div>
-      {!doneRecipes.some((entry) => entry.id === API[0].idMeal) && (
+      {!doneRecipes.some((entry) => entry.id === API[0].idDrink) && (
         <Link to={ `./${id}/in-progress` }>
           <button
             type="button"
@@ -86,25 +106,25 @@ function MealsDetails({
           </button>
         </Link>
       )}
-      {Object.keys(inProgressRecipes.meals)
-        .some((entry) => entry === API[0].idMeal)
-              && (
-                <button
-                  type="button"
-                  data-testid="start-recipe-btn"
-                  style={ {
-                    position: 'fixed',
-                    bottom: '0px',
-                  } }
-                >
-                  Continue Recipe
-                </button>
-              )}
+      {Object.keys(inProgressRecipes.drinks)
+        .some((entry) => entry === API[0].idDrink)
+          && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ {
+                position: 'fixed',
+                bottom: '0px',
+              } }
+            >
+              Continue Recipe
+            </button>
+          )}
     </div>
   );
 }
 
-MealsDetails.propTypes = ({
+DrinksDetails.propTypes = ({
   API: PropTypes.arrayOf().isRequired,
   renderIngredients: PropTypes.func.isRequired,
   recommendations: PropTypes.arrayOf().isRequired,
@@ -113,4 +133,4 @@ MealsDetails.propTypes = ({
   inProgressRecipes: PropTypes.shape().isRequired,
 });
 
-export default MealsDetails;
+export default DrinksDetails;
