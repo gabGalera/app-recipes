@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { allCategoryMealsApi, firstTwelveMealsApi,
   firstTwelveMealsByCategoryApi } from '../services/searchApi';
 import Footer from './Footer';
@@ -7,6 +8,7 @@ import Header from './Header';
 function Meals() {
   const [firstTwelveReceive, setFirstTwelveReceive] = useState([]);
   const [allCategoryName, setAllCategoryName] = useState([]);
+  const [nameOfTheLastCategory, setNameOfTheLastCategory] = useState('');
   const maxLength = 12;
   const maxLengthCategory = 5;
   const componentDidMount = async () => {
@@ -19,7 +21,10 @@ function Meals() {
   }, []);
 
   const onClickFilter = async ({ target: { name } }) => {
-    if (name === 'all') return setFirstTwelveReceive(await firstTwelveMealsApi());
+    setNameOfTheLastCategory(name);
+    if (name === 'all' || name === nameOfTheLastCategory) {
+      return setFirstTwelveReceive(await firstTwelveMealsApi());
+    }
     setFirstTwelveReceive(await firstTwelveMealsByCategoryApi(name));
   };
 
@@ -48,14 +53,16 @@ function Meals() {
         </button>
       </div>
       {firstTwelveReceive.slice(0, maxLength).map((receive, index) => (
-        <div data-testid={ `${index}-recipe-card` } key={ receive.idMeal }>
-          <img
-            src={ receive.strMealThumb }
-            alt={ receive.strMeal }
-            data-testid={ `${index}-card-img` }
-          />
-          <p data-testid={ `${index}-card-name` }>{receive.strMeal}</p>
-        </div>
+        <Link to={ `/meals/${receive.idMeal}` } key={ receive.idMeal }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ receive.strMealThumb }
+              alt={ receive.strMeal }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{receive.strMeal}</p>
+          </div>
+        </Link>
       ))}
       <Footer />
     </div>
