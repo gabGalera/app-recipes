@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import MealsDetailsInformations from '../components/MealsDetailsInformations';
 import DrinksDetailsInformations from '../components/DrinksDetailsInformations';
 import { fecthDrinkDetails,
   fecthMealsDetails,
   fetchDrinksRecommendations, fetchMealsRecommendations } from '../services/searchApi';
 import FavoriteAndShareButtons from '../components/FavoriteAndShareButtons';
+import StartAndContinueButtons from '../components/StartAndContinueButtons';
 
 function RecipeDetails() {
   const [API, setAPI] = useState([]);
@@ -93,34 +94,13 @@ function RecipeDetails() {
           id={ id }
           inProgressRecipes={ inProgressRecipes }
         />
-        {!doneRecipes.some((entry) => entry.id === API[0].idMeal) && (
-          <Link to={ `./${id}/in-progress` }>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ {
-                position: 'fixed',
-                bottom: '0px',
-              } }
-            >
-              Start Recipe
-            </button>
-          </Link>
-        )}
-        {Object.keys(inProgressRecipes.meals)
-          .some((entry) => entry === API[0].idMeal)
-              && (
-                <button
-                  type="button"
-                  data-testid="start-recipe-btn"
-                  style={ {
-                    position: 'fixed',
-                    bottom: '0px',
-                  } }
-                >
-                  Continue Recipe
-                </button>
-              )}
+        <StartAndContinueButtons
+          doneRecipes={ doneRecipes }
+          API={ API }
+          id={ id }
+          inProgressRecipes={ inProgressRecipes }
+          pathname={ pathname }
+        />
       </div>
     );
   }
@@ -141,34 +121,13 @@ function RecipeDetails() {
         id={ id }
         inProgressRecipes={ inProgressRecipes }
       />
-      {!doneRecipes.some((entry) => entry.id === API[0].idDrink) && (
-        <Link to={ `./${id}/in-progress` }>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            style={ {
-              position: 'fixed',
-              bottom: '0px',
-            } }
-          >
-            Start Recipe
-          </button>
-        </Link>
-      )}
-      {Object.keys(inProgressRecipes.drinks)
-        .some((entry) => entry === API[0].idDrink)
-          && (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ {
-                position: 'fixed',
-                bottom: '0px',
-              } }
-            >
-              Continue Recipe
-            </button>
-          )}
+      <StartAndContinueButtons
+        doneRecipes={ doneRecipes }
+        API={ API }
+        id={ id }
+        inProgressRecipes={ inProgressRecipes }
+        pathname={ pathname }
+      />
     </div>
   );
 }
