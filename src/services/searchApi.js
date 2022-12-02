@@ -87,3 +87,77 @@ export const firstTwelveMealsByCategoryApi = async (category) => {
   const result = await reponse.json();
   return result.meals;
 };
+
+export const fecthMealsDetails = async ({
+  pathname,
+  setId,
+  setInProgressRecipes,
+  setDoneRecipes,
+  setAPI,
+  setIsLoadingMain,
+}) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`;
+  const response = await fetch(url);
+  const result = await response.json();
+  setId(pathname.split('/')[2]);
+  setInProgressRecipes(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) ? JSON
+      .parse(localStorage.getItem('inProgressRecipes')) : {
+      meals: { id: [] },
+      drinks: { id: [] },
+    });
+  setDoneRecipes(JSON
+    .parse(localStorage.getItem('doneRecipes')) ? JSON
+      .parse(localStorage.getItem('doneRecipes')) : []);
+  setAPI(result.meals);
+  setIsLoadingMain(false);
+};
+
+export const fetchMealsRecommendations = async ({
+  setRecommendations,
+  setIsLoadingRecommendation,
+}) => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(url);
+  const result = await response.json();
+  setRecommendations(result.drinks);
+  setIsLoadingRecommendation(false);
+};
+
+export const fecthDrinkDetails = async ({
+  pathname,
+  setId,
+  setInProgressRecipes,
+  setDoneRecipes,
+  setAPI,
+  setIsLoadingMain,
+  setIsFood,
+}) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`;
+  const response = await fetch(url);
+  const result = await response.json();
+  setId(pathname.split('/')[2]);
+  setInProgressRecipes(JSON
+    .parse(localStorage.getItem('inProgressRecipes')) ? JSON
+      .parse(localStorage.getItem('inProgressRecipes')) : {
+      meals: { id: [] },
+      drinks: { id: [] },
+    });
+  setDoneRecipes(JSON
+    .parse(localStorage.getItem('doneRecipes')) ? JSON
+      .parse(localStorage.getItem('doneRecipes')) : []);
+  setIsFood(false);
+  setAPI(result.drinks);
+  setIsLoadingMain(false);
+};
+
+export const fetchDrinksRecommendations = async ({
+  setRecommendations,
+  setIsLoadingRecommendation,
+}) => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(url);
+  const result = await response.json();
+  setRecommendations(result.meals);
+  setIsLoadingRecommendation(false);
+};

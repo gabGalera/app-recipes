@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import MealsDetails from '../components/MealsDetails';
-import DrinksDetails from '../components/DrinksDetails';
+import { Link, useHistory } from 'react-router-dom';
+import MealsDetailsInformations from '../components/MealsDetailsInformations';
+import DrinksDetailsInformations from '../components/DrinksDetailsInformations';
+import { fecthDrinkDetails,
+  fecthMealsDetails,
+  fetchDrinksRecommendations, fetchMealsRecommendations } from '../services/searchApi';
+import FavoriteAndShareButtons from '../components/FavoriteAndShareButtons';
 
 function RecipeDetails() {
   const [API, setAPI] = useState([]);
@@ -12,59 +16,41 @@ function RecipeDetails() {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState([]);
   const [id, setId] = useState('');
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const history = useHistory();
   const { location: { pathname } } = history;
 
   useEffect(() => {
+    setFavoriteRecipes(JSON
+      .parse(localStorage.getItem('favoriteRecipes')) ? JSON
+        .parse(localStorage.getItem('favoriteRecipes')) : []);
     if (pathname.split('/')[1] === 'meals') {
-      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`)
-        .then((report) => report.json())
-        .then((data) => {
-          setId(pathname.split('/')[2]);
-          setInProgressRecipes(JSON
-            .parse(localStorage.getItem('inProgressRecipes')) ? JSON
-              .parse(localStorage.getItem('inProgressRecipes')) : {
-              meals: { id: [] },
-              drinks: { id: [] },
-            });
-          setDoneRecipes(JSON
-            .parse(localStorage.getItem('doneRecipes')) ? JSON
-              .parse(localStorage.getItem('doneRecipes')) : []);
-          setAPI(data.meals);
-          setIsLoadingMain(false);
-        });
-      fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-        .then((report) => report.json())
-        .then((data) => {
-          setRecommendations(data.drinks);
-          setIsLoadingRecommendation(false);
-        });
+      fecthMealsDetails({ pathname,
+        setId,
+        setInProgressRecipes,
+        setDoneRecipes,
+        setAPI,
+        setIsLoadingMain });
+      fetchMealsRecommendations({
+        setRecommendations,
+        setIsLoadingRecommendation,
+      });
     }
     if (pathname.split('/')[1] === 'drinks') {
-      fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${pathname.split('/')[2]}`)
-        .then((report) => report.json())
-        .then((data) => {
-          setId(pathname.split('/')[2]);
-          setInProgressRecipes(JSON
-            .parse(localStorage.getItem('inProgressRecipes')) ? JSON
-              .parse(localStorage.getItem('inProgressRecipes')) : {
-              meals: { id: [] },
-              drinks: { id: [] },
-            });
-          setDoneRecipes(JSON
-            .parse(localStorage.getItem('doneRecipes')) ? JSON
-              .parse(localStorage.getItem('doneRecipes')) : []);
-          setIsFood(false);
-          setAPI(data.drinks);
-          setIsLoadingMain(false);
-        });
-      fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-        .then((report) => report.json())
-        .then((data) => {
-          setIsLoadingRecommendation(false);
-          setRecommendations(data.meals);
-        });
+      fecthDrinkDetails({
+        pathname,
+        setId,
+        setInProgressRecipes,
+        setDoneRecipes,
+        setAPI,
+        setIsLoadingMain,
+        setIsFood,
+      });
+      fetchDrinksRecommendations({
+        setRecommendations,
+        setIsLoadingRecommendation,
+      });
     }
   }, [pathname]);
 
@@ -91,25 +77,99 @@ function RecipeDetails() {
   if (isLoadingMain || isLoadingRecommendation) return <h1>Loading...</h1>;
 
   if (isFood) {
-    return (<MealsDetails
-      API={ API }
-      renderIngredients={ renderIngredients }
-      recommendations={ recommendations }
-      doneRecipes={ doneRecipes }
-      id={ id }
-      inProgressRecipes={ inProgressRecipes }
-
-    />);
+    return (
+      <div>
+        <FavoriteAndShareButtons
+          favoriteRecipes={ favoriteRecipes }
+          setFavoriteRecipes={ setFavoriteRecipes }
+          API={ API }
+          pathname={ pathname }
+        />
+        <MealsDetailsInformations
+          API={ API }
+          renderIngredients={ renderIngredients }
+          recommendations={ recommendations }
+          doneRecipes={ doneRecipes }
+          id={ id }
+          inProgressRecipes={ inProgressRecipes }
+        />
+        {!doneRecipes.some((entry) => entry.id === API[0].idMeal) && (
+          <Link to={ `./${id}/in-progress` }>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ {
+                position: 'fixed',
+                bottom: '0px',
+              } }
+            >
+              Start Recipe
+            </button>
+          </Link>
+        )}
+        {Object.keys(inProgressRecipes.meals)
+          .some((entry) => entry === API[0].idMeal)
+              && (
+                <button
+                  type="button"
+                  data-testid="start-recipe-btn"
+                  style={ {
+                    position: 'fixed',
+                    bottom: '0px',
+                  } }
+                >
+                  Continue Recipe
+                </button>
+              )}
+      </div>
+    );
   }
 
-  return (<DrinksDetails
-    API={ API }
-    renderIngredients={ renderIngredients }
-    recommendations={ recommendations }
-    doneRecipes={ doneRecipes }
-    id={ id }
-    inProgressRecipes={ inProgressRecipes }
-  />
+  return (
+    <div>
+      <FavoriteAndShareButtons
+        favoriteRecipes={ favoriteRecipes }
+        setFavoriteRecipes={ setFavoriteRecipes }
+        API={ API }
+        pathname={ pathname }
+      />
+      <DrinksDetailsInformations
+        API={ API }
+        renderIngredients={ renderIngredients }
+        recommendations={ recommendations }
+        doneRecipes={ doneRecipes }
+        id={ id }
+        inProgressRecipes={ inProgressRecipes }
+      />
+      {!doneRecipes.some((entry) => entry.id === API[0].idDrink) && (
+        <Link to={ `./${id}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            style={ {
+              position: 'fixed',
+              bottom: '0px',
+            } }
+          >
+            Start Recipe
+          </button>
+        </Link>
+      )}
+      {Object.keys(inProgressRecipes.drinks)
+        .some((entry) => entry === API[0].idDrink)
+          && (
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              style={ {
+                position: 'fixed',
+                bottom: '0px',
+              } }
+            >
+              Continue Recipe
+            </button>
+          )}
+    </div>
   );
 }
 
