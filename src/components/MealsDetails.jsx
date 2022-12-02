@@ -146,10 +146,10 @@ function MealsDetails({
 }
 
 MealsDetails.propTypes = ({
-  API: PropTypes.arrayOf().isRequired,
+  API: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   renderIngredients: PropTypes.func.isRequired,
-  recommendations: PropTypes.arrayOf().isRequired,
-  doneRecipes: PropTypes.arrayOf().isRequired,
+  recommendations: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  doneRecipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   id: PropTypes.string.isRequired,
   inProgressRecipes: PropTypes.shape().isRequired,
 });
