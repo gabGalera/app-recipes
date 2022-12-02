@@ -5,8 +5,10 @@ import DrinksDetailsInformations from '../components/DrinksDetailsInformations';
 import { fecthDrinkDetails,
   fecthMealsDetails,
   fetchDrinksRecommendations, fetchMealsRecommendations } from '../services/searchApi';
-import FavoriteAndShareButtons from '../components/FavoriteAndShareButtons';
-import StartAndContinueButtons from '../components/StartAndContinueButtons';
+import FavAndShareBtnMeals from '../components/FavAndShareBtnMeals';
+import FavAndShareBtnDrinks from '../components/FavAndShareBtnDrinks';
+import StartAndContinueBtnDrinks from '../components/StartAndContinueBtnDrinks';
+import StartAndContinueBtnMeals from '../components/StartAndContinueBtnMeals';
 
 function RecipeDetails() {
   const [API, setAPI] = useState([]);
@@ -26,11 +28,18 @@ function RecipeDetails() {
     setFavoriteRecipes(JSON
       .parse(localStorage.getItem('favoriteRecipes')) ? JSON
         .parse(localStorage.getItem('favoriteRecipes')) : []);
+    setId(pathname.split('/')[2]);
+    setInProgressRecipes(JSON
+      .parse(localStorage.getItem('inProgressRecipes')) ? JSON
+        .parse(localStorage.getItem('inProgressRecipes')) : {
+        meals: { id: [] },
+        drinks: { id: [] },
+      });
+    setDoneRecipes(JSON
+      .parse(localStorage.getItem('doneRecipes')) ? JSON
+        .parse(localStorage.getItem('doneRecipes')) : []);
     if (pathname.split('/')[1] === 'meals') {
       fecthMealsDetails({ pathname,
-        setId,
-        setInProgressRecipes,
-        setDoneRecipes,
         setAPI,
         setIsLoadingMain });
       fetchMealsRecommendations({
@@ -41,13 +50,10 @@ function RecipeDetails() {
     if (pathname.split('/')[1] === 'drinks') {
       fecthDrinkDetails({
         pathname,
-        setId,
-        setInProgressRecipes,
-        setDoneRecipes,
         setAPI,
         setIsLoadingMain,
-        setIsFood,
       });
+      setIsFood(false);
       fetchDrinksRecommendations({
         setRecommendations,
         setIsLoadingRecommendation,
@@ -80,7 +86,7 @@ function RecipeDetails() {
   if (isFood) {
     return (
       <div>
-        <FavoriteAndShareButtons
+        <FavAndShareBtnMeals
           favoriteRecipes={ favoriteRecipes }
           setFavoriteRecipes={ setFavoriteRecipes }
           API={ API }
@@ -94,7 +100,7 @@ function RecipeDetails() {
           id={ id }
           inProgressRecipes={ inProgressRecipes }
         />
-        <StartAndContinueButtons
+        <StartAndContinueBtnMeals
           doneRecipes={ doneRecipes }
           API={ API }
           id={ id }
@@ -107,11 +113,10 @@ function RecipeDetails() {
 
   return (
     <div>
-      <FavoriteAndShareButtons
+      <FavAndShareBtnDrinks
         favoriteRecipes={ favoriteRecipes }
         setFavoriteRecipes={ setFavoriteRecipes }
         API={ API }
-        pathname={ pathname }
       />
       <DrinksDetailsInformations
         API={ API }
@@ -121,7 +126,7 @@ function RecipeDetails() {
         id={ id }
         inProgressRecipes={ inProgressRecipes }
       />
-      <StartAndContinueButtons
+      <StartAndContinueBtnDrinks
         doneRecipes={ doneRecipes }
         API={ API }
         id={ id }
