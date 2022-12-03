@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { JSONFavRecipesReader } from '../helpers/JSONReaders';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function FavAndShareBtnDrinks({
-  favoriteRecipes,
-  setFavoriteRecipes,
-}) {
+function FavAndShareBtnDrinks() {
+  const [favoriteRecipes, setFavoriteRecipes] = useState(JSONFavRecipesReader);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div>
@@ -77,10 +76,5 @@ function FavAndShareBtnDrinks({
     </div>
   );
 }
-
-FavAndShareBtnDrinks.propTypes = ({
-  favoriteRecipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  setFavoriteRecipes: PropTypes.func.isRequired,
-});
 
 export default FavAndShareBtnDrinks;

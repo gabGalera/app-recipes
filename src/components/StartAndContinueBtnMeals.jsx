@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { JSONDoneRecipesReader,
+  JSONInProgressRecipesReader } from '../helpers/JSONReaders';
 
-function StartAndContinueBtnMeals({
-  doneRecipes,
-  inProgressRecipes,
-  id,
-}) {
+function StartAndContinueBtnMeals() {
+  const history = useHistory();
+  const { location: { pathname } } = history;
+  const id = pathname.split('/')[2];
+  const [doneRecipes] = useState(JSONDoneRecipesReader);
+  const [inProgressRecipes] = useState(JSONInProgressRecipesReader);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div>
@@ -44,11 +47,5 @@ function StartAndContinueBtnMeals({
     </div>
   );
 }
-
-StartAndContinueBtnMeals.propTypes = ({
-  doneRecipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  inProgressRecipes: PropTypes.shape().isRequired,
-  id: PropTypes.string.isRequired,
-});
 
 export default StartAndContinueBtnMeals;
