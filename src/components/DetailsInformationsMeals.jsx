@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import renderIngredients from '../helpers/renderIngredients';
 
-function MealsDetailsInformations({
-  API, renderIngredients, recommendations,
-}) {
+function DetailsInformationsMeals() {
+  const recommendations = useSelector((state) => state.recipeDetails.recommendations);
+  const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div>
       <div>
@@ -18,7 +19,7 @@ function MealsDetailsInformations({
       <p data-testid="recipe-category">
         {API[0].strCategory}
       </p>
-      {renderIngredients()}
+      {renderIngredients(API)}
       <p data-testid="instructions">{API[0].strInstructions}</p>
       <p data-testid="video">{API[0].strVideo}</p>
       <h1>Recommended</h1>
@@ -56,10 +57,4 @@ function MealsDetailsInformations({
   );
 }
 
-MealsDetailsInformations.propTypes = ({
-  API: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  renderIngredients: PropTypes.func.isRequired,
-  recommendations: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-});
-
-export default MealsDetailsInformations;
+export default DetailsInformationsMeals;

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -7,8 +8,8 @@ const copy = require('clipboard-copy');
 function FavAndShareBtnMeals({
   favoriteRecipes,
   setFavoriteRecipes,
-  API,
 }) {
+  const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div>
       <button
@@ -78,7 +79,6 @@ function FavAndShareBtnMeals({
 }
 
 FavAndShareBtnMeals.propTypes = ({
-  API: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   favoriteRecipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   setFavoriteRecipes: PropTypes.func.isRequired,
 });

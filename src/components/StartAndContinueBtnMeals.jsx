@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 function StartAndContinueBtnMeals({
   doneRecipes,
-  API,
   inProgressRecipes,
   id,
 }) {
+  const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div>
       <div>
@@ -46,7 +47,6 @@ function StartAndContinueBtnMeals({
 
 StartAndContinueBtnMeals.propTypes = ({
   doneRecipes: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  API: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   inProgressRecipes: PropTypes.shape().isRequired,
   id: PropTypes.string.isRequired,
 });

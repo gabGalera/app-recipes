@@ -1,108 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import MealsDetailsInformations from '../components/MealsDetailsInformations';
-import DrinksDetailsInformations from '../components/DrinksDetailsInformations';
+import { useDispatch } from 'react-redux';
+import { setAPIDetails, setRecommendationsDetails } from '../redux/actions';
+import DetailsInformationsMeals from '../components/DetailsInformationsMeals';
+import DetailsInformationsDrinks from '../components/DetailsInformationsDrinks';
 import { fecthDrinkDetails,
   fecthMealsDetails,
-  fetchDrinksRecommendations, fetchMealsRecommendations } from '../services/searchApi';
+  fetchDrinksRecommendations,
+  fetchMealsRecommendations } from '../services/recipeDetails';
+import { JSONFavRecipesReader,
+  JSONInProgressRecipesReader,
+  JSONDoneRecipesReader } from '../helpers/JSONReaders';
 import FavAndShareBtnMeals from '../components/FavAndShareBtnMeals';
 import FavAndShareBtnDrinks from '../components/FavAndShareBtnDrinks';
 import StartAndContinueBtnDrinks from '../components/StartAndContinueBtnDrinks';
 import StartAndContinueBtnMeals from '../components/StartAndContinueBtnMeals';
 
 function RecipeDetails() {
-  const [API, setAPI] = useState([]);
-  const [recommendations, setRecommendations] = useState([]);
   const [isLoadingMain, setIsLoadingMain] = useState(true);
   const [isLoadingRecommendation, setIsLoadingRecommendation] = useState(true);
-  const [isFood, setIsFood] = useState(true);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState([]);
   const [id, setId] = useState('');
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const history = useHistory();
+  const dispatch = useDispatch();
   const { location: { pathname } } = history;
 
   useEffect(() => {
-    setFavoriteRecipes(JSON
-      .parse(localStorage.getItem('favoriteRecipes')) ? JSON
-        .parse(localStorage.getItem('favoriteRecipes')) : []);
+    setFavoriteRecipes(JSONFavRecipesReader);
     setId(pathname.split('/')[2]);
-    setInProgressRecipes(JSON
-      .parse(localStorage.getItem('inProgressRecipes')) ? JSON
-        .parse(localStorage.getItem('inProgressRecipes')) : {
-        meals: { id: [] },
-        drinks: { id: [] },
-      });
-    setDoneRecipes(JSON
-      .parse(localStorage.getItem('doneRecipes')) ? JSON
-        .parse(localStorage.getItem('doneRecipes')) : []);
+    setInProgressRecipes(JSONInProgressRecipesReader);
+    setDoneRecipes(JSONDoneRecipesReader);
     if (pathname.split('/')[1] === 'meals') {
       fecthMealsDetails({ pathname,
-        setAPI,
+        setAPIDetails,
+        dispatch,
         setIsLoadingMain });
       fetchMealsRecommendations({
-        setRecommendations,
+        setRecommendationsDetails,
+        dispatch,
         setIsLoadingRecommendation,
       });
     }
     if (pathname.split('/')[1] === 'drinks') {
       fecthDrinkDetails({
         pathname,
-        setAPI,
+        setAPIDetails,
+        dispatch,
         setIsLoadingMain,
       });
-      setIsFood(false);
       fetchDrinksRecommendations({
-        setRecommendations,
+        setRecommendationsDetails,
+        dispatch,
         setIsLoadingRecommendation,
       });
     }
-  }, [pathname]);
-
-  const renderIngredients = () => {
-    const keys = Object.keys(API[0]);
-    const ingredients = [];
-    keys.forEach((entry) => {
-      if (entry.includes('strIngredient') && API[0][entry]) {
-        ingredients.push(entry);
-      }
-    });
-
-    const JSX = ingredients.map((entry, index) => (
-      <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-        {API[0][entry]}
-        {' '}
-        {API[0][`strMeasure${index + 1}`]}
-      </p>
-    ));
-
-    return JSX;
-  };
+  }, [pathname, dispatch]);
 
   if (isLoadingMain || isLoadingRecommendation) return <h1>Loading...</h1>;
 
-  if (isFood) {
+  if (pathname.split('/')[1] === 'meals') {
     return (
       <div>
         <FavAndShareBtnMeals
           favoriteRecipes={ favoriteRecipes }
           setFavoriteRecipes={ setFavoriteRecipes }
-          API={ API }
           pathname={ pathname }
         />
-        <MealsDetailsInformations
-          API={ API }
-          renderIngredients={ renderIngredients }
-          recommendations={ recommendations }
-          doneRecipes={ doneRecipes }
-          id={ id }
-          inProgressRecipes={ inProgressRecipes }
-        />
+        <DetailsInformationsMeals />
         <StartAndContinueBtnMeals
           doneRecipes={ doneRecipes }
-          API={ API }
           id={ id }
           inProgressRecipes={ inProgressRecipes }
           pathname={ pathname }
@@ -116,19 +85,10 @@ function RecipeDetails() {
       <FavAndShareBtnDrinks
         favoriteRecipes={ favoriteRecipes }
         setFavoriteRecipes={ setFavoriteRecipes }
-        API={ API }
       />
-      <DrinksDetailsInformations
-        API={ API }
-        renderIngredients={ renderIngredients }
-        recommendations={ recommendations }
-        doneRecipes={ doneRecipes }
-        id={ id }
-        inProgressRecipes={ inProgressRecipes }
-      />
+      <DetailsInformationsDrinks />
       <StartAndContinueBtnDrinks
         doneRecipes={ doneRecipes }
-        API={ API }
         id={ id }
         inProgressRecipes={ inProgressRecipes }
         pathname={ pathname }
