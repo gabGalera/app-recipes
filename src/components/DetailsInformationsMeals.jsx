@@ -1,8 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import renderIngredients from '../helpers/renderIngredients';
 
 function DetailsInformationsMeals() {
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const recommendations = useSelector((state) => state.recipeDetails.recommendations);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
@@ -19,7 +22,7 @@ function DetailsInformationsMeals() {
       <p data-testid="recipe-category">
         {API[0].strCategory}
       </p>
-      {renderIngredients(API)}
+      {renderIngredients(API, pathname)}
       <p data-testid="instructions">{API[0].strInstructions}</p>
       <p data-testid="video">{API[0].strVideo}</p>
       <h1>Recommended</h1>

@@ -1,4 +1,4 @@
-const renderIngredients = (API) => {
+const renderIngredients = (API, pathname) => {
   const keys = Object.keys(API[0]);
   const ingredients = [];
   keys.forEach((entry) => {
@@ -7,6 +7,22 @@ const renderIngredients = (API) => {
     }
   });
 
+  if (pathname.split('/')[3] === 'in-progress') {
+    const JSX = ingredients.map((entry, index) => (
+      <label
+        htmlFor="check-ingredients"
+        key={ index }
+        data-testid={ `${index}-ingredient-step` }
+      >
+        <input type="checkbox" id="check-ingredients" />
+        {API[0][entry]}
+        {' '}
+        {API[0][`strMeasure${index + 1}`]}
+      </label>
+    ));
+
+    return JSX;
+  }
   const JSX = ingredients.map((entry, index) => (
     <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
       {API[0][entry]}
