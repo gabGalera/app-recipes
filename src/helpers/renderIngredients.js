@@ -12,9 +12,21 @@ const renderIngredients = (API, pathname) => {
       <label
         htmlFor="check-ingredients"
         key={ index }
+        id={ `${index}-ingredient-step` }
         data-testid={ `${index}-ingredient-step` }
+        style={ {
+          margin: '5px',
+        } }
       >
-        <input type="checkbox" id="check-ingredients" />
+        <input
+          type="checkbox"
+          id="check-ingredients"
+          onClick={ () => {
+            document
+              .getElementById(`${index}-ingredient-step`)
+              .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+          } }
+        />
         {API[0][entry]}
         {' '}
         {API[0][`strMeasure${index + 1}`]}
