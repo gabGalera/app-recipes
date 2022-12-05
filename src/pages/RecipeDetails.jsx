@@ -21,32 +21,24 @@ function RecipeDetails() {
   const history = useHistory();
   const { location: { pathname } } = history;
 
-  useEffect(() => {
+  const componentDidMount = async () => {
     if (pathname.split('/')[1] === 'meals') {
-      fecthMealsDetails({ pathname,
-        setAPIDetails,
-        dispatch,
-        setIsLoadingMain });
-      fetchMealsRecommendations({
-        setRecommendationsDetails,
-        dispatch,
-        setIsLoadingRecommendation,
-      });
+      dispatch(setRecommendationsDetails(await fetchMealsRecommendations()));
+      dispatch(setAPIDetails(await fecthMealsDetails(pathname)));
+      setIsLoadingRecommendation(false);
+      setIsLoadingMain(false);
     }
     if (pathname.split('/')[1] === 'drinks') {
-      fecthDrinkDetails({
-        pathname,
-        setAPIDetails,
-        dispatch,
-        setIsLoadingMain,
-      });
-      fetchDrinksRecommendations({
-        setRecommendationsDetails,
-        dispatch,
-        setIsLoadingRecommendation,
-      });
+      dispatch(setAPIDetails(await fecthDrinkDetails(pathname)));
+      dispatch(setRecommendationsDetails(await fetchDrinksRecommendations()));
+      setIsLoadingRecommendation(false);
+      setIsLoadingMain(false);
     }
-  }, [pathname, dispatch]);
+  };
+
+  useEffect(() => {
+    componentDidMount();
+  }, []);
 
   if (isLoadingMain || isLoadingRecommendation) return <h1>Loading...</h1>;
 
