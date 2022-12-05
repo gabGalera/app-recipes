@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { JSONInProgressRecipesReader } from '../helpers/JSONReaders';
 import renderIngredients from '../helpers/renderIngredients';
 
 function DetailsInformationsDrinks() {
   const history = useHistory();
   const { location: { pathname } } = history;
+  const type = pathname.split('/')[1];
+  const id = pathname.split('/')[2];
   const recommendations = useSelector((state) => state.recipeDetails.recommendations);
   const API = useSelector((state) => state.recipeDetails.API);
+
+  useEffect(() => {
+    const inProgressRecipes = JSONInProgressRecipesReader;
+    if (inProgressRecipes[type][id]) {
+      inProgressRecipes[type][id]
+        .forEach((entry, index) => {
+          const marked = Object.values(entry)[0];
+          if (marked) {
+            document
+              .getElementById(`check-ingredients-${index}`)
+              .checked = marked;
+            document
+              .getElementById(`${index}-ingredient-step`)
+              .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+          }
+        });
+    }
+  }, []);
+
   return (
     <div>
       <div>
