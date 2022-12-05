@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { JSONFavRecipesReader } from '../helpers/JSONReaders';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -7,6 +8,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 const copy = require('clipboard-copy');
 
 function FavAndShareBtnMeals() {
+  const history = useHistory();
+  const { location: { pathname } } = history;
   const [favoriteRecipes, setFavoriteRecipes] = useState(JSONFavRecipesReader);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
@@ -15,7 +18,7 @@ function FavAndShareBtnMeals() {
         type="button"
         data-testid="share-btn"
         onClick={ () => {
-          copy(window.location.href);
+          copy(`http://localhost:3000/meals/${pathname.split('/')[2]}`);
           const messageElement = document.getElementById('share-message');
           messageElement.innerText = 'Link copied!';
         } }
