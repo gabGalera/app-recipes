@@ -21,10 +21,16 @@ const renderIngredients = (API, pathname) => {
         <input
           type="checkbox"
           id="check-ingredients"
-          onClick={ () => {
-            document
-              .getElementById(`${index}-ingredient-step`)
-              .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+          onClick={ ({ target }) => {
+            if (target.checked) {
+              document
+                .getElementById(`${index}-ingredient-step`)
+                .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+            } else {
+              document
+                .getElementById(`${index}-ingredient-step`)
+                .style.textDecoration = 'none';
+            }
           } }
         />
         {API[0][entry]}
