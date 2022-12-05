@@ -35,6 +35,10 @@ const firstTimeInProgress = ({ API, type, id, inProgressRecipes, ingredients }) 
             inProgressRecipes[type][id][index][`strIngredient${index + 1}`] = true;
             localStorage
               .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+            document
+              .getElementById('finish-recipe-btn')
+              .disabled = inProgressRecipes[type][id]
+                .some((ingredient) => Object.values(ingredient)[0] === false);
           } else {
             target.checked = false;
             document
@@ -43,6 +47,10 @@ const firstTimeInProgress = ({ API, type, id, inProgressRecipes, ingredients }) 
             inProgressRecipes[type][id][index][`strIngredient${index + 1}`] = false;
             localStorage
               .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+            document
+              .getElementById('finish-recipe-btn')
+              .disabled = inProgressRecipes[type][id]
+                .some((ingredient) => Object.values(ingredient)[0] === false);
           }
         } }
       />

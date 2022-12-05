@@ -41,6 +41,12 @@ const renderIngredients = (API, pathname) => {
               inProgressRecipes[type][id][index][`strIngredient${index + 1}`] = true;
               localStorage
                 .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+              document
+                .getElementById('finish-recipe-btn')
+                .disabled = inProgressRecipes[pathname
+                  .split('/')[1]][pathname
+                  .split('/')[2]]
+                  .some((ingredient) => Object.values(ingredient)[0] === false);
             } else {
               target.checked = false;
               document
@@ -49,6 +55,12 @@ const renderIngredients = (API, pathname) => {
               inProgressRecipes[type][id][index][`strIngredient${index + 1}`] = false;
               localStorage
                 .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+              document
+                .getElementById('finish-recipe-btn')
+                .disabled = inProgressRecipes[pathname
+                  .split('/')[1]][pathname
+                  .split('/')[2]]
+                  .some((ingredient) => Object.values(ingredient)[0] === false);
             }
           } }
         />

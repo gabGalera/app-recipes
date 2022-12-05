@@ -9,12 +9,14 @@ function DetailsInformationsMeals() {
   const { location: { pathname } } = history;
   const type = pathname.split('/')[1];
   const id = pathname.split('/')[2];
+  const isInProgress = pathname.split('/')[3];
   const recommendations = useSelector((state) => state.recipeDetails.recommendations);
   const API = useSelector((state) => state.recipeDetails.API);
 
   useEffect(() => {
     const inProgressRecipes = JSONInProgressRecipesReader;
-    if (inProgressRecipes[type][id]) {
+    console.log(inProgressRecipes[type][id]);
+    if (inProgressRecipes[type][id] && isInProgress) {
       inProgressRecipes[type][id]
         .forEach((entry, index) => {
           const marked = Object.values(entry)[0];
