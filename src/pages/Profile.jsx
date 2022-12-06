@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
@@ -13,24 +14,28 @@ function Profile() {
         >
           {localStorageEmail}
         </p>
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-        >
-          Done Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-        >
-          Favorite Recipes
-        </button>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-        >
-          Logout
-        </button>
+        <Link to="/done-recipes">
+          <button
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Done Recipes
+          </button>
+        </Link>
+        <Link to="/favorite-recipes">
+          <button
+            type="button"
+            data-testid="profile-favorite-btn"
+          >
+            Favorite Recipes
+          </button>
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+          >
+            Logout
+          </button>
+        </Link>
       </div>
       <Footer />
     </div>
