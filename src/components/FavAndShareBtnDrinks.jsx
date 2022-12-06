@@ -25,10 +25,10 @@ function FavAndShareBtnDrinks() {
       >
         Share Recipe
       </button>
-      <button
-        type="button"
+      <input
+        alt="favoritar"
+        type="image"
         data-testid="favorite-btn"
-        // não tenho ideia do pq o avaliador quer esse src aqui
         src={ favoriteRecipes.some((entry) => entry.id === API[0].idDrink)
           ? blackHeartIcon
           : whiteHeartIcon }
@@ -59,23 +59,7 @@ function FavAndShareBtnDrinks() {
             );
           }
         } }
-      >
-        Favorite
-      </button>
-      {
-        favoriteRecipes.some((entry) => entry.id === API[0].idDrink) ? (
-          <img
-            src={ blackHeartIcon }
-            alt="favoriteIcon"
-            style={ { padding: '5px' } }
-          />
-        ) : (
-          <img
-            src={ whiteHeartIcon }
-            alt="favoriteIcon"
-            style={ { padding: '5px' } }
-          />)
-      }
+      />
     </div>
   );
 }
