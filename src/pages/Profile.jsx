@@ -3,14 +3,15 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
+  const localStorageEmail = JSON.parse(localStorage.getItem('user')).email;
   return (
     <div>
       <Header title="Profile" search={ false } />
-      <body>
+      <div>
         <p
           data-testid="profile-email"
         >
-          Email
+          {localStorageEmail}
         </p>
         <button
           type="button"
@@ -30,7 +31,7 @@ function Profile() {
         >
           Logout
         </button>
-      </body>
+      </div>
       <Footer />
     </div>
   );
