@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
 import shareIcon from '../images/shareIcon.svg';
@@ -41,12 +42,25 @@ function DoneRecipes() {
       {(filterParameters === 'all' ? (doneRecipes) : (filtering))
         .map((recipe, index) => (
           <div key={ index }>
-            <h1 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h1>
-            <img
-              src={ recipe.image }
-              alt={ recipe.name }
-              data-testid={ `${index}-horizontal-image` }
-            />
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <h1
+                data-testid={ `${index}-horizontal-name` }
+                style={ {
+                  textDecoration: 'none',
+                } }
+              >
+                {recipe.name}
+
+              </h1>
+              <img
+                src={ recipe.image }
+                alt={ recipe.name }
+                data-testid={ `${index}-horizontal-image` }
+                style={ {
+                  width: '180px',
+                } }
+              />
+            </Link>
             <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
             <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
             <div>
