@@ -20,15 +20,16 @@ function RecipeInProgress() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { location: { pathname } } = history;
+  const type = pathname.split('/')[1];
 
   const componentDidMount = async () => {
-    if (pathname.split('/')[1] === 'meals') {
+    if (type === 'meals') {
       dispatch(setRecommendationsDetails(await fetchMealsRecommendations()));
       dispatch(setAPIDetails(await fecthMealsDetails(pathname)));
       setIsLoadingRecommendation(false);
       setIsLoadingMain(false);
     }
-    if (pathname.split('/')[1] === 'drinks') {
+    if (type === 'drinks') {
       dispatch(setAPIDetails(await fecthDrinkDetails(pathname)));
       dispatch(setRecommendationsDetails(await fetchDrinksRecommendations()));
       setIsLoadingRecommendation(false);
@@ -42,7 +43,7 @@ function RecipeInProgress() {
 
   if (isLoadingMain || isLoadingRecommendation) return <h1>Loading...</h1>;
 
-  if (pathname.split('/')[1] === 'meals') {
+  if (type === 'meals') {
     return (
       <>
         <FavAndShareBtnMeals />
