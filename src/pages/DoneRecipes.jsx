@@ -3,6 +3,8 @@ import Header from '../components/Header';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
 import shareIcon from '../images/shareIcon.svg';
 
+const copy = require('clipboard-copy');
+
 function DoneRecipes() {
   const doneRecipes = JSONDoneRecipesReader;
   return (
@@ -22,12 +24,22 @@ function DoneRecipes() {
           />
           <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-          <input
-            src={ shareIcon }
-            alt="share icon"
-            type="image"
-            data-testid={ `${index}-horizontal-share-btn` }
-          />
+          <div>
+            <input
+              src={ shareIcon }
+              alt="share icon"
+              type="image"
+              data-testid={ `${index}-horizontal-share-btn` }
+              onClick={ () => {
+                console.log('hey');
+                copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
+                const messageElement = document
+                  .getElementById(`${index}-share-message`);
+                messageElement.innerText = 'Link copied!';
+              } }
+            />
+            <p id={ `${index}-share-message` } />
+          </div>
 
           {recipe.tags.map((tag, tagIndex) => (
             <div
