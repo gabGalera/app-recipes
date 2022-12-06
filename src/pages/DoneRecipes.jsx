@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
+import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipes() {
   const doneRecipes = JSONDoneRecipesReader;
@@ -21,9 +22,13 @@ function DoneRecipes() {
           />
           <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-          <button type="button" data-testid={ `${index}-horizontal-share-btn` }>
-            Share
-          </button>
+          <input
+            src={ shareIcon }
+            alt="share icon"
+            type="image"
+            data-testid={ `${index}-horizontal-share-btn` }
+          />
+
           {recipe.tags.map((tag, tagIndex) => (
             <div
               key={ tagIndex }
@@ -32,6 +37,13 @@ function DoneRecipes() {
               {tag}
             </div>
           ))}
+          {recipe.type === 'meal' ? (
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${recipe.nationality} - ${recipe.category}`}
+            </p>
+          ) : (<div />)}
         </div>
       ))}
     </div>
