@@ -43,7 +43,13 @@ function DoneRecipes() {
             >
               {`${recipe.nationality} - ${recipe.category}`}
             </p>
-          ) : (<div />)}
+          ) : (
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              {`${recipe.alcoholicOrNot} - ${recipe.category}`}
+            </p>
+          )}
         </div>
       ))}
     </div>
