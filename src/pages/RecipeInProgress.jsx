@@ -53,7 +53,6 @@ function RecipeInProgress() {
           id="finish-recipe-btn"
           data-testid="finish-recipe-btn"
           onClick={ () => {
-            console.log('hey');
             const doneRecipes = JSONDoneRecipesReader;
             doneRecipes.push({
               id: API[0].idMeal,
