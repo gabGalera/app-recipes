@@ -50,7 +50,6 @@ function DoneRecipes() {
                 } }
               >
                 {recipe.name}
-
               </h1>
               <img
                 src={ recipe.image }
@@ -62,7 +61,7 @@ function DoneRecipes() {
               />
             </Link>
             <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+            <p data-testid={ `${index}-horizontal-done-date` }>{`${recipe.doneDate}`}</p>
             <div>
               <input
                 src={ shareIcon }
