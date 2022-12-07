@@ -12,7 +12,7 @@ function Header({ title, search }) {
         type="button"
         onClick={ () => history.push('/profile') }
       >
-        <img src={ userIcon } alt="" data-testid="profile-top-btn" />
+        <img src={ userIcon } alt="profile" data-testid="profile-top-btn" />
 
       </button>
       {search && <SearchBar />}

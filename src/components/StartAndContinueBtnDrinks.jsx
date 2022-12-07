@@ -31,16 +31,18 @@ function StartAndContinueBtnDrinks() {
         {Object.keys(inProgressRecipes.drinks)
           .some((entry) => entry === API[0].idDrink)
           && (
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ {
-                position: 'fixed',
-                bottom: '0px',
-              } }
-            >
-              Continue Recipe
-            </button>
+            <Link to={ `./${id}/in-progress` }>
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                style={ {
+                  position: 'fixed',
+                  bottom: '0px',
+                } }
+              >
+                Continue Recipe
+              </button>
+            </Link>
           )}
       </div>
     </div>
