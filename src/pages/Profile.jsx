@@ -12,7 +12,8 @@ function Profile() {
         <p
           data-testid="profile-email"
         >
-          {userLocalStorageEmail?.email.length > 0 ? userLocalStorageEmail.email : ''}
+          {userLocalStorageEmail?.email.length
+            > 0 ? userLocalStorageEmail.email : 'Não achamos seu email'}
         </p>
         <Link to="/done-recipes">
           <button
