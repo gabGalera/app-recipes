@@ -31,4 +31,31 @@ describe('Testes para pagina Profile', () => {
     const title = screen.getByTestId('page-title');
     expect(title).toBeInTheDocument();
   });
+  test('testa ao clicar em Done Recipes é direcionado para rota /done-recipes ', () => {
+    const { history } = renderWithRouterAndRedux(<App />, '/profile');
+    const doneRecipesButton = screen.getByTestId('profile-done-btn');
+    userEvent.click(doneRecipesButton);
+    expect(history.location.pathname).toEqual('/done-recipes');
+  });
+  test('testa ao clicar em Favorite Recipes é direcionado para rota /favorite-recipes', () => {
+    const { history } = renderWithRouterAndRedux(<App />, '/profile');
+    const favoriteRecipesButton = screen.getByTestId('profile-favorite-btn');
+    userEvent.click(favoriteRecipesButton);
+    expect(history.location.pathname).toEqual('/favorite-recipes');
+  });
+  test('testa se ao clicar em Logout os dados no localStorange são limpo e é dicionado para roda /', async () => {
+    localStorage.setItem('user', JSON.stringify({ email: 'teste@test.com' }));
+    const { history } = renderWithRouterAndRedux(<App />, '/profile');
+    const test = await screen.findByText('teste@test.com');
+    expect(test).toBeInTheDocument();
+    const logoutButton = screen.getByTestId('profile-logout-btn');
+    userEvent.click(logoutButton);
+    expect(localStorage.getItem('user')).toEqual(null);
+    expect(history.location.pathname).toEqual('/');
+  });
+  test('', () => {
+    const { getByTestId } = renderWithRouterAndRedux(<App />, '/profile');
+    const email = getByTestId('profile-email');
+    expect(email).toHaveTextContent('Não achamos seu email');
+  });
 });
