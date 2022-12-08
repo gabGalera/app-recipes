@@ -1,0 +1,9 @@
+.ingredients__main__div {
+  background: white;
+  border: 0.554px solid #b1b1b1;
+  border-radius: 5.351px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin: 0 12px 12px;
+}

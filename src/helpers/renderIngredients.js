@@ -1,5 +1,7 @@
 import { JSONInProgressRecipesReader } from './JSONReaders';
 import firstTimeInProgress from './firstTimeInProgress';
+import styles from '../styles/RecipeDetails.module.css';
+import ingredientStyles from '../styles/RecipeInProgress.module.css';
 
 const renderIngredients = (API, pathname) => {
   const type = pathname.split('/')[1];
@@ -21,14 +23,7 @@ const renderIngredients = (API, pathname) => {
     }
     const JSX = (
       <div
-        style={ {
-          boxSizing: 'border-box',
-          margin: '0px 12px 12px 12px',
-
-          background: '#FFFFFF',
-          border: '0.554397px solid #B1B1B1',
-          borderRadius: '5.35144px',
-        } }
+        className={ ingredientStyles.ingredients__main__div }
       >
         {
           ingredients.map((entry, index) => (
@@ -92,14 +87,7 @@ const renderIngredients = (API, pathname) => {
 
   const JSX = (
     <ul
-      style={ {
-        boxSizing: 'border-box',
-        margin: '0px 12px 12px 12px',
-
-        background: '#FFFFFF',
-        border: '0.554397px solid #B1B1B1',
-        borderRadius: '5.35144px',
-      } }
+      className={ styles.ingredients__ul }
     >
       {ingredients.map((entry, index) => (
         <li

@@ -125,3 +125,11 @@ h1 {
   font-weight: 400;
   line-height: 12px;
 }
+
+.ingredients__ul {
+  background: white;
+  border: 0.554px solid #b1b1b1;
+  border-radius: 5.351px;
+  box-sizing: border-box;
+  margin: 0 12px 12px;
+}
