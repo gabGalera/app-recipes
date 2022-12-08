@@ -41,34 +41,30 @@ const renderIngredients = (API, pathname) => {
                 id={ `check-ingredients-${index}` }
                 onChange={ ({ target }) => {
                   if (target.checked) {
+                    const innerObject = inProgressRecipes[type][id][index];
                     target.checked = true;
                     document
                       .getElementById(`${index}-ingredient-step`)
                       .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
-                    inProgressRecipes[type][id][index][`strIngredient
-                    ${index + 1}`] = true;
+                    innerObject[`strIngredient${index + 1}`] = true;
                     localStorage
                       .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
                     document
                       .getElementById('finish-recipe-btn')
-                      .disabled = inProgressRecipes[pathname
-                        .split('/')[1]][pathname
-                        .split('/')[2]]
+                      .disabled = inProgressRecipes[type][id]
                         .some((ingredient) => Object.values(ingredient)[0] === false);
                   } else {
+                    const innerObject = inProgressRecipes[type][id][index];
                     target.checked = false;
                     document
                       .getElementById(`${index}-ingredient-step`)
                       .style.textDecoration = 'none';
-                    inProgressRecipes[type][id][index][`strIngredient
-                    ${index + 1}`] = false;
+                    innerObject[`strIngredient${index + 1}`] = false;
                     localStorage
                       .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
                     document
                       .getElementById('finish-recipe-btn')
-                      .disabled = inProgressRecipes[pathname
-                        .split('/')[1]][pathname
-                        .split('/')[2]]
+                      .disabled = inProgressRecipes[type][id]
                         .some((ingredient) => Object.values(ingredient)[0] === false);
                   }
                 } }

@@ -30,7 +30,7 @@ const firstTimeInProgress = ({ API, type, id, inProgressRecipes, ingredients }) 
           >
             <input
               type="checkbox"
-              id="check-ingredients"
+              id={ `check-ingredients-${index}` }
               onChange={ ({ target }) => {
                 if (target.checked) {
                   target.checked = true;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import styles from '../styles/FavAndShareBtns.module.css';
 import { JSONFavRecipesReader } from '../helpers/JSONReaders';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -15,26 +16,14 @@ function FavAndShareBtnMeals() {
   const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div
-      style={ {
-        display: 'flex',
-        alignItems: 'flex-end',
-        position: 'absolute',
-        top: '1%',
-        width: '65px',
-        right: '1%',
-        zIndex: '2',
-      } }
+      className={ styles.main__container }
     >
       <input
         alt="share"
         src={ shareIcon }
         type="image"
         data-testid="share-btn"
-        style={ {
-          filter: `invert(76%) sepia(70%) saturate(491%) 
-              hue-rotate(344deg) brightness(99%) contrast(101%)`,
-          margin: '5%',
-        } }
+        className={ styles.share__icon }
         onClick={ () => {
           copy(`http://localhost:3000/meals/${pathname.split('/')[2]}`);
           const messageElement = document.getElementById('share-message');
@@ -45,11 +34,7 @@ function FavAndShareBtnMeals() {
         alt="Favoritar"
         type="image"
         data-testid="favorite-btn"
-        style={ {
-          margin: '5%',
-          filter: `invert(76%) sepia(70%) saturate(491%) 
-              hue-rotate(344deg) brightness(99%) contrast(101%)`,
-        } }
+        className={ styles.fav__icon }
         src={ favoriteRecipes.some((entry) => entry.id === API[0].idMeal)
           ? blackHeartIcon
           : whiteHeartIcon }

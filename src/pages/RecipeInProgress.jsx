@@ -51,6 +51,7 @@ function RecipeInProgress() {
         <button
           type="button"
           id="finish-recipe-btn"
+          // disabled
           data-testid="finish-recipe-btn"
           onClick={ () => {
             const doneRecipes = JSONDoneRecipesReader;
