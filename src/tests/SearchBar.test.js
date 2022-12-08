@@ -42,13 +42,50 @@ describe('Testes para o componente SearchBar', () => {
     const lastDrink = await screen.findByTestId(lastRecipeID);
     expect(lastDrink).toBeInTheDocument();
   });
-  test('testa se caso não selecionar o tipo de busca, a busca deve ser feita por nome', async () => {
+  test('testa se ao fazer uma busca uma imagem da receita é renderizada', async () => {
     renderWithRouterAndRedux(<App />, '/meals');
+    const ingredientInput = screen.getByLabelText('Ingredient');
+    userEvent.click(ingredientInput);
     const textInput = screen.getByTestId(textInputTID);
-    userEvent.type(textInput, 's');
+    userEvent.type(textInput, 'carrot');
     const searchButton = screen.getByTestId(searchButtonID);
     userEvent.click(searchButton);
-    const lastRecipe = await screen.findByTestId(lastRecipeID);
-    expect(lastRecipe).toBeInTheDocument();
+    const recipe = await screen.findByAltText('French Lentils With Garlic and Thyme');
+    expect(recipe).toBeInTheDocument();
+  });
+  test('teste se apenas digitando e pesquisando é direcionado para pagina do drink', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, '/drinks');
+    const textInput = screen.getByTestId(textInputTID);
+    userEvent.type(textInput, 'Smut');
+    const searchButton = screen.getByTestId(searchButtonID);
+    userEvent.click(searchButton);
+    const drinkImage = await screen.findByTestId('recipe-photo');
+    expect(drinkImage).toBeInTheDocument();
+    expect(history.location.pathname).toEqual('/drinks/17141');
+  });
+  test('testa se ao fazer uma busca e clicar na receita, é direcionado a pagina dela', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, '/meals');
+    const ingredientInput = screen.getByLabelText('Name');
+    userEvent.click(ingredientInput);
+    const textInput = screen.getByTestId(textInputTID);
+    userEvent.type(textInput, 'Corba');
+    const searchButton = screen.getByTestId(searchButtonID);
+    userEvent.click(searchButton);
+    const recipe = await screen.findByAltText('Corba');
+    userEvent.click(recipe);
+    expect(history.location.pathname).toEqual('/meals/52977');
+  });
+  test('teste busca de drinks pela primeira letra', () => {
+    const { history } = renderWithRouterAndRedux(<App />, '/meals');
+    const drinkBtn = screen.getByTestId('drinks-bottom-btn');
+    userEvent.click(drinkBtn);
+    expect(history.location.pathname).toEqual('/drinks');
+    const textInput = screen.getByTestId(textInputTID);
+    userEvent.type(textInput, 's');
+    const firstLetterInput = screen.getByLabelText('First Letter');
+    userEvent.click(firstLetterInput);
+    const searchButton = screen.getByTestId(searchButtonID);
+    userEvent.click(searchButton);
+    expect(history.location.pathname).toEqual('/drinks');
   });
 });
