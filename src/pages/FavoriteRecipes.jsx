@@ -9,7 +9,7 @@ function FavoriteRecipes() {
   const [isLoading, setIsLoading] = useState(false);
   const componentDidMount = () => {
     const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    return favRecipes.length > 0 ? setFavoriteRecipes(favRecipes)
+    return favRecipes !== null ? setFavoriteRecipes(favRecipes)
       : global.alert('sem receitas');
   };
   useEffect(() => { componentDidMount(); }, []);

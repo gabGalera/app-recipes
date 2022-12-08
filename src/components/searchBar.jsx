@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
+import { resultSearchAction } from '../redux/actions';
 import { firstLetterApi, firstLetterCocktailApi, ingredientApi, ingredientCocktailApi,
   nameApi, nameCocktailApi } from '../services/searchApi';
 
 function SearchBar() {
-  const maxArrayLength = 12;
+  // const maxArrayLength = 12;
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [typeRadio, setTypeRadio] = useState('');
@@ -13,6 +15,7 @@ function SearchBar() {
   const [test, setTest] = useState(0);
   const history = useHistory();
   const { location: { pathname } } = history;
+  const dispatch = useDispatch();
 
   const setRadio = ({ target: { value } }) => {
     setTypeRadio(value);
@@ -35,6 +38,7 @@ function SearchBar() {
   };
 
   useEffect(() => {
+    dispatch(resultSearchAction(resultSearch));
     if (resultSearch === undefined) return [];
     if (resultSearch.length === 1) {
       switch (pathname) {
@@ -111,7 +115,7 @@ function SearchBar() {
                 onChange={ ({ target: { value } }) => setSearchInput(value) }
               />
             </label>
-            {resultSearch.slice(0, maxArrayLength).map((recipe, index) => {
+            {/* {resultSearch.slice(0, maxArrayLength).map((recipe, index) => {
               if (pathname === '/meals') {
                 return (
                   <div key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
@@ -134,7 +138,7 @@ function SearchBar() {
                   />
                 </div>
               );
-            })}
+            })} */}
           </div>
         )}
     </div>
