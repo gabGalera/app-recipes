@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { JSONFavRecipesReader } from '../helpers/JSONReaders';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -13,22 +14,42 @@ function FavAndShareBtnMeals() {
   const [favoriteRecipes, setFavoriteRecipes] = useState(JSONFavRecipesReader);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
-    <div>
-      <button
-        type="button"
+    <div
+      style={ {
+        display: 'flex',
+        alignItems: 'flex-end',
+        position: 'absolute',
+        top: '1%',
+        width: '65px',
+        right: '1%',
+        zIndex: '2',
+      } }
+    >
+      <input
+        alt="share"
+        src={ shareIcon }
+        type="image"
         data-testid="share-btn"
+        style={ {
+          filter: `invert(76%) sepia(70%) saturate(491%) 
+              hue-rotate(344deg) brightness(99%) contrast(101%)`,
+          margin: '5%',
+        } }
         onClick={ () => {
           copy(`http://localhost:3000/meals/${pathname.split('/')[2]}`);
           const messageElement = document.getElementById('share-message');
           messageElement.innerText = 'Link copied!';
         } }
-      >
-        Share Recipe
-      </button>
+      />
       <input
         alt="Favoritar"
         type="image"
         data-testid="favorite-btn"
+        style={ {
+          margin: '5%',
+          filter: `invert(76%) sepia(70%) saturate(491%) 
+              hue-rotate(344deg) brightness(99%) contrast(101%)`,
+        } }
         src={ favoriteRecipes.some((entry) => entry.id === API[0].idMeal)
           ? blackHeartIcon
           : whiteHeartIcon }

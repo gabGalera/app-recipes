@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import styles from '../styles/RecipeDetails.module.css';
 import { JSONInProgressRecipesReader } from '../helpers/JSONReaders';
 import renderIngredients from '../helpers/renderIngredients';
+import mealIcon from '../images/mealIcon.svg';
 
 function DetailsInformationsMeals() {
   const history = useHistory();
@@ -35,27 +37,68 @@ function DetailsInformationsMeals() {
   return (
     <div>
       <div>
-        <p id="share-message" />
         <img
+          className={ styles.main__img }
           src={ API[0].strMealThumb }
           alt={ API[0].strMeal }
           data-testid="recipe-photo"
         />
       </div>
-      <p data-testid="recipe-title">{API[0].strMeal}</p>
-      <p data-testid="recipe-category">
-        {API[0].strCategory}
+      <p id="share-message" />
+      <p
+        data-testid="recipe-title"
+        className={ styles.recipe__title }
+      >
+        {API[0].strMeal}
       </p>
-      {renderIngredients(API, pathname)}
-      <p data-testid="instructions">{API[0].strInstructions}</p>
-      <p data-testid="video">{API[0].strVideo}</p>
-      <h1>Recommended</h1>
       <div
-        style={ {
-          display: 'flex',
-          width: '100%',
-          overflowX: 'scroll',
-        } }
+        className={ styles.img__container }
+      >
+        <div
+          className={ styles.img__circle }
+        >
+          <img
+            className={ styles.meal__icon }
+            src={ mealIcon }
+            alt="meal icon"
+          />
+        </div>
+        <p
+          data-testid="recipe-category"
+          className={ styles.recipe__category }
+        >
+          {API[0].strCategory}
+        </p>
+      </div>
+      <h1>
+        Ingredients
+      </h1>
+      <div>
+        {renderIngredients(API, pathname)}
+      </div>
+      <h1>
+        Instructions
+      </h1>
+      <p
+        className={ styles.instructions }
+        data-testid="instructions"
+      >
+        {API[0].strInstructions}
+      </p>
+      <h1>
+        Video
+      </h1>
+      <iframe
+        className={ styles.video }
+        data-testid="video"
+        title={ API[0].strMeal }
+        src={ API[0].strYoutube.replace('watch?v=', 'embed/') }
+      />
+      <h1>
+        Recommended
+      </h1>
+      <div
+        className={ styles.carousel }
       >
         {recommendations
           .filter((value, index) => {
@@ -63,20 +106,20 @@ function DetailsInformationsMeals() {
             return index < maxRecommendations;
           })
           .map((entry, index) => (
-            <div key={ index } data-testid={ `${index}-recommendation-card` }>
+            <div
+              className={ styles.recommendation__card }
+              key={ index }
+              data-testid={ `${index}-recommendation-card` }
+            >
+              <img
+                src={ entry.strDrinkThumb }
+                alt={ entry.strDrink }
+              />
               <p data-testid={ `${index}-recommendation-title` }>
                 {
                   entry.strDrink
                 }
               </p>
-              <img
-                src={ entry.strDrinkThumb }
-                alt={ entry.strDrink }
-                style={ {
-                  padding: '1vw',
-                  width: '180px',
-                } }
-              />
             </div>
           ))}
       </div>

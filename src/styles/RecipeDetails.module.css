@@ -1,0 +1,127 @@
+h1 {
+  color: #1a1b1c;
+  margin: 12px;
+}
+
+.main__img {
+  filter: brightness(60%);
+  height: 30vh;
+  object-fit: fill;
+  width: 100%;
+}
+
+.recipe__title {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  height: 5.68%;
+  justify-content: center;
+  left: 30.28%;
+  letter-spacing: 0.105em;
+  line-height: 20px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 10.95%;
+  width: 40.84%;
+  z-index: 2;
+}
+
+.meal__icon {
+  filter: invert(76%) sepia(70%) saturate(491%)
+    hue-rotate(344deg) brightness(99%) contrast(101%);
+  height: 40px;
+  left: 15%;
+  position: absolute;
+  top: 15%;
+  width: 40px;
+}
+
+.recipe__category {
+  height: 40px;
+  left: 60%;
+  position: absolute;
+  top: 50%;
+  width: 40px;
+}
+
+.img__circle {
+  border: 1.32px solid #fcc436;
+  border-radius: 100%;
+  box-sizing: border-box;
+  height: 60px;
+  left: 1%;
+  position: absolute;
+  top: 1%;
+  width: 60px;
+}
+
+.img__container {
+  align-items: flex-end;
+  color: #fcc436;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  height: 5%;
+  justify-content: space-evenly;
+  left: 5%;
+  line-height: 20px;
+  position: absolute;
+  top: 0.5%;
+  width: 30%;
+}
+
+.instructions {
+  background: white;
+  border: 0.554px solid #b1b1b1;
+  border-radius: 5.35px;
+  box-sizing: border-box;
+  margin: 0 12px 12px;
+  padding: 12px;
+}
+
+.carousel {
+  display: flex;
+  margin: 0 12px 28px;
+  overflow-x: scroll;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.video {
+  height: 30vh;
+  margin: 0 5%;
+  width: 90%;
+}
+
+.recommendation__card {
+  align-items: center;
+  background: white;
+  border: 0.517px solid #b1b1b1;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 1%;
+}
+
+.recommendation__card img {
+  padding: 1vw;
+  width: 180px;
+}
+
+.recommendation__card p {
+  color: #1a1b1c;
+  font-family: Epilogue , sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+}

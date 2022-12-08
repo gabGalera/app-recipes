@@ -19,67 +19,100 @@ const renderIngredients = (API, pathname) => {
 
       return JSX;
     }
-    const JSX = ingredients.map((entry, index) => (
-      <label
-        htmlFor={ `check-ingredients-${index}` }
-        key={ index }
-        id={ `${index}-ingredient-step` }
-        data-testid={ `${index}-ingredient-step` }
+    const JSX = (
+      <div
         style={ {
-          margin: '5px',
+          boxSizing: 'border-box',
+          margin: '0px 12px 12px 12px',
+
+          background: '#FFFFFF',
+          border: '0.554397px solid #B1B1B1',
+          borderRadius: '5.35144px',
         } }
       >
-        <input
-          type="checkbox"
-          id={ `check-ingredients-${index}` }
-          onChange={ ({ target }) => {
-            if (target.checked) {
-              target.checked = true;
-              document
-                .getElementById(`${index}-ingredient-step`)
-                .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
-              inProgressRecipes[type][id][index][`strIngredient${index + 1}`] = true;
-              localStorage
-                .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-              document
-                .getElementById('finish-recipe-btn')
-                .disabled = inProgressRecipes[pathname
-                  .split('/')[1]][pathname
-                  .split('/')[2]]
-                  .some((ingredient) => Object.values(ingredient)[0] === false);
-            } else {
-              target.checked = false;
-              document
-                .getElementById(`${index}-ingredient-step`)
-                .style.textDecoration = 'none';
-              inProgressRecipes[type][id][index][`strIngredient${index + 1}`] = false;
-              localStorage
-                .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-              document
-                .getElementById('finish-recipe-btn')
-                .disabled = inProgressRecipes[pathname
-                  .split('/')[1]][pathname
-                  .split('/')[2]]
-                  .some((ingredient) => Object.values(ingredient)[0] === false);
-            }
-          } }
-        />
-        {API[0][entry]}
-        {' '}
-        {API[0][`strMeasure${index + 1}`]}
-      </label>
-    ));
+        {
+          ingredients.map((entry, index) => (
+            <label
+              htmlFor={ `check-ingredients-${index}` }
+              key={ index }
+              id={ `${index}-ingredient-step` }
+              data-testid={ `${index}-ingredient-step` }
+              style={ {
+                margin: '5px',
+              } }
+            >
+              <input
+                type="checkbox"
+                id={ `check-ingredients-${index}` }
+                onChange={ ({ target }) => {
+                  if (target.checked) {
+                    target.checked = true;
+                    document
+                      .getElementById(`${index}-ingredient-step`)
+                      .style.textDecoration = 'line-through solid rgb(0, 0, 0)';
+                    inProgressRecipes[type][id][index][`strIngredient
+                    ${index + 1}`] = true;
+                    localStorage
+                      .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+                    document
+                      .getElementById('finish-recipe-btn')
+                      .disabled = inProgressRecipes[pathname
+                        .split('/')[1]][pathname
+                        .split('/')[2]]
+                        .some((ingredient) => Object.values(ingredient)[0] === false);
+                  } else {
+                    target.checked = false;
+                    document
+                      .getElementById(`${index}-ingredient-step`)
+                      .style.textDecoration = 'none';
+                    inProgressRecipes[type][id][index][`strIngredient
+                    ${index + 1}`] = false;
+                    localStorage
+                      .setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+                    document
+                      .getElementById('finish-recipe-btn')
+                      .disabled = inProgressRecipes[pathname
+                        .split('/')[1]][pathname
+                        .split('/')[2]]
+                        .some((ingredient) => Object.values(ingredient)[0] === false);
+                  }
+                } }
+              />
+              {API[0][entry]}
+              {' '}
+              {API[0][`strMeasure${index + 1}`]}
+            </label>
+          ))
+        }
+      </div>
+    );
 
     return JSX;
   }
 
-  const JSX = ingredients.map((entry, index) => (
-    <p key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-      {API[0][entry]}
-      {' '}
-      {API[0][`strMeasure${index + 1}`]}
-    </p>
-  ));
+  const JSX = (
+    <ul
+      style={ {
+        boxSizing: 'border-box',
+        margin: '0px 12px 12px 12px',
+
+        background: '#FFFFFF',
+        border: '0.554397px solid #B1B1B1',
+        borderRadius: '5.35144px',
+      } }
+    >
+      {ingredients.map((entry, index) => (
+        <li
+          key={ index }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
+          {API[0][entry]}
+          {' '}
+          {API[0][`strMeasure${index + 1}`]}
+        </li>
+      ))}
+    </ul>
+  );
 
   return JSX;
 };

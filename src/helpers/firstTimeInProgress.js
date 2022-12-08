@@ -15,7 +15,7 @@ const firstTimeInProgress = ({ API, type, id, inProgressRecipes, ingredients }) 
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   const JSX = ingredients.map((entry, index) => (
     <label
-      htmlFor="check-ingredients"
+      htmlFor={ `check-ingredients-${index}` }
       key={ index }
       id={ `${index}-ingredient-step` }
       data-testid={ `${index}-ingredient-step` }
