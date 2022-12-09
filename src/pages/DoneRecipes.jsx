@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
 import shareIcon from '../images/shareIcon.svg';
-
-const copy = require('clipboard-copy');
+import allButton from '../images/allButton.svg';
+import foodIcon from '../images/foodIcon.svg';
+import beverageIcon from '../images/beverageIcon.svg';
 
 function DoneRecipes() {
   const [filterParameters, setFilterParameters] = useState('all');
@@ -18,36 +20,38 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Done Recipes" search={ false } />
-      <button
-        type="button"
+      <input
+        src={ allButton }
+        alt="all button"
+        type="image"
         data-testid="filter-by-all-btn"
         onClick={ () => setFilterParameters('all') }
-      >
-        All
-      </button>
-      <button
-        type="button"
+      />
+      <input
+        src={ foodIcon }
+        alt="food icon"
+        type="image"
         data-testid="filter-by-meal-btn"
         onClick={ () => setFilterParameters('meal') }
-      >
-        Meals
-      </button>
-      <button
-        type="button"
+      />
+      <input
+        src={ beverageIcon }
+        alt="beverage icon"
+        type="image"
         data-testid="filter-by-drink-btn"
         onClick={ () => setFilterParameters('drink') }
-      >
-        Drinks
-      </button>
+      />
       {(filterParameters === 'all' ? (doneRecipes) : (filtering))
         .map((recipe, index) => (
           <div key={ index }>
-            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <Link
+              style={ {
+                textDecoration: 'none',
+              } }
+              to={ `/${recipe.type}s/${recipe.id}` }
+            >
               <h1
                 data-testid={ `${index}-horizontal-name` }
-                style={ {
-                  textDecoration: 'none',
-                } }
               >
                 {recipe.name}
               </h1>
@@ -69,7 +73,6 @@ function DoneRecipes() {
                 type="image"
                 data-testid={ `${index}-horizontal-share-btn` }
                 onClick={ () => {
-                  console.log('hey');
                   copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
                   const messageElement = document
                     .getElementById(`${index}-share-message`);
