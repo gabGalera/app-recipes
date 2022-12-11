@@ -36,11 +36,12 @@ function DetailsInformationsDrinks() {
   return (
     <div
       style={ {
-        maxWidth: '360px',
+        maxWidth: '1200px',
+        width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
         backgroundColor: 'white',
+        minHeight: '100vh',
       } }
     >
       <div>

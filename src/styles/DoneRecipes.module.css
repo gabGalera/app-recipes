@@ -1,8 +1,11 @@
 .main__div {
+  background: 'rgba(65, 25, 127, 1)' ,;
   background-color: white;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   max-width: 360px;
+
 }
 
 .btn__div {

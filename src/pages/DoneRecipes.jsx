@@ -20,130 +20,138 @@ function DoneRecipes() {
       .filter((recipe) => recipe.type === 'drink'));
   return (
     <div
-      className={ styles.main__div }
+      style={ {
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'rgba(65, 25, 127, 1)',
+      } }
     >
-      <Header title="Done Recipes" search={ false } />
       <div
-        className={ styles.btn__div }
+        className={ styles.main__div }
       >
-        <input
-          src={ allButton }
-          alt="all button"
-          type="image"
-          data-testid="filter-by-all-btn"
-          onClick={ () => setFilterParameters('all') }
-        />
-        <input
-          src={ foodIcon }
-          alt="food icon"
-          type="image"
-          data-testid="filter-by-meal-btn"
-          onClick={ () => setFilterParameters('meal') }
-        />
-        <input
-          src={ beverageIcon }
-          alt="beverage icon"
-          type="image"
-          data-testid="filter-by-drink-btn"
-          onClick={ () => setFilterParameters('drink') }
-        />
-      </div>
-      {(filterParameters === 'all' ? (doneRecipes) : (filtering))
-        .map((recipe, index) => (
-          <div
-            key={ index }
-            className={ styles.recipe__container }
-          >
-            <Link
-              to={ `/${recipe.type}s/${recipe.id}` }
-            >
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-                style={ {
-                  width: '180px',
-                } }
-              />
-            </Link>
+        <Header title="Done Recipes" search={ false } />
+        <div
+          className={ styles.btn__div }
+        >
+          <input
+            src={ allButton }
+            alt="all button"
+            type="image"
+            data-testid="filter-by-all-btn"
+            onClick={ () => setFilterParameters('all') }
+          />
+          <input
+            src={ foodIcon }
+            alt="food icon"
+            type="image"
+            data-testid="filter-by-meal-btn"
+            onClick={ () => setFilterParameters('meal') }
+          />
+          <input
+            src={ beverageIcon }
+            alt="beverage icon"
+            type="image"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => setFilterParameters('drink') }
+          />
+        </div>
+        {(filterParameters === 'all' ? (doneRecipes) : (filtering))
+          .map((recipe, index) => (
             <div
-              style={ {
-                marginLeft: '5%',
-              } }
+              key={ index }
+              className={ styles.recipe__container }
             >
               <Link
-                style={ {
-                  textDecoration: 'none',
-                  color: 'black',
-                } }
                 to={ `/${recipe.type}s/${recipe.id}` }
               >
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                  className={ styles.recipe__name }
-                >
-                  {recipe.name}
-                </p>
+                <img
+                  src={ recipe.image }
+                  alt={ recipe.name }
+                  data-testid={ `${index}-horizontal-image` }
+                  style={ {
+                    width: '180px',
+                  } }
+                />
               </Link>
-              {recipe.type === 'meal' ? (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                  className={ styles.recipe__type }
-                >
-                  {`${recipe.nationality} - ${recipe.category}`}
-                </p>
-              ) : (
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                  className={ styles.recipe__type }
-                >
-                  {`${recipe.alcoholicOrNot} - ${recipe.category}`}
-                </p>
-              )}
-              <p
-                style={ { height: '0px', width: '0px', color: 'transparent' } }
-                data-testid={ `${index}-horizontal-top-text` }
+              <div
+                style={ {
+                  marginLeft: '5%',
+                } }
               >
-                {recipe.category}
-              </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-                className={ styles.done__date }
-              >
-                {`${recipe.doneDate}`}
-              </p>
-              <div style={ { display: 'flex' } }>
-                {
-                  recipe.tags.map((tag, tagIndex) => (
-                    <div
-                      key={ tagIndex }
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                      className={ styles.tag__container }
-                    >
-                      {tag}
-                    </div>
-                  ))
-                }
+                <Link
+                  style={ {
+                    textDecoration: 'none',
+                    color: 'black',
+                  } }
+                  to={ `/${recipe.type}s/${recipe.id}` }
+                >
+                  <p
+                    data-testid={ `${index}-horizontal-name` }
+                    className={ styles.recipe__name }
+                  >
+                    {recipe.name}
+                  </p>
+                </Link>
+                {recipe.type === 'meal' ? (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className={ styles.recipe__type }
+                  >
+                    {`${recipe.nationality} - ${recipe.category}`}
+                  </p>
+                ) : (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className={ styles.recipe__type }
+                  >
+                    {`${recipe.alcoholicOrNot} - ${recipe.category}`}
+                  </p>
+                )}
+                <p
+                  style={ { height: '0px', width: '0px', color: 'transparent' } }
+                  data-testid={ `${index}-horizontal-top-text` }
+                >
+                  {recipe.category}
+                </p>
+                <p
+                  data-testid={ `${index}-horizontal-done-date` }
+                  className={ styles.done__date }
+                >
+                  {`${recipe.doneDate}`}
+                </p>
+                <div style={ { display: 'flex' } }>
+                  {
+                    recipe.tags.map((tag, tagIndex) => (
+                      <div
+                        key={ tagIndex }
+                        data-testid={ `${index}-${tag}-horizontal-tag` }
+                        className={ styles.tag__container }
+                      >
+                        {tag}
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+              <div>
+                <input
+                  className={ styles.share__btn }
+                  src={ shareIcon }
+                  alt="share icon"
+                  type="image"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  onClick={ () => {
+                    copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
+                    const messageElement = document
+                      .getElementById(`${index}-share-message`);
+                    messageElement.innerText = 'Link copied!';
+                  } }
+                />
+                <p id={ `${index}-share-message` } />
               </div>
             </div>
-            <div>
-              <input
-                className={ styles.share__btn }
-                src={ shareIcon }
-                alt="share icon"
-                type="image"
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => {
-                  copy(`http://localhost:3000/${recipe.type}s/${recipe.id}`);
-                  const messageElement = document
-                    .getElementById(`${index}-share-message`);
-                  messageElement.innerText = 'Link copied!';
-                } }
-              />
-              <p id={ `${index}-share-message` } />
-            </div>
-          </div>
-        ))}
+          ))}
+      </div>
     </div>
   );
 }

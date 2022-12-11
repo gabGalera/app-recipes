@@ -5,7 +5,8 @@ h1 {
 
 .main__img {
   filter: brightness(60%);
-  height: 30vh;
+  height: auto;
+  max-height: 100vh;
   object-fit: fill;
   width: 100%;
 }

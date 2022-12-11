@@ -49,6 +49,7 @@ function RecipeInProgress() {
         style={ {
           display: 'flex',
           justifyContent: 'center',
+          background: 'rgba(65, 25, 127, 1)',
         } }
       >
         <FavAndShareBtnMeals />
@@ -106,7 +107,13 @@ function RecipeInProgress() {
     );
   }
   return (
-    <>
+    <div
+      style={ {
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'rgba(65, 25, 127, 1)',
+      } }
+    >
       <FavAndShareBtnDrinks />
       <DetailsInformationsDrinks />
       <button
@@ -157,7 +164,7 @@ function RecipeInProgress() {
       >
         Finish Recipe
       </button>
-    </>
+    </div>
   );
 }
 
