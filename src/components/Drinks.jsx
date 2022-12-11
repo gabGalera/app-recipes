@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { resultSearchAction } from '../redux/actions';
 import { allCategoryDrinksApi,
   firstTwelveCocktailApi, firstTwelveCocktailByCategoryApi } from '../services/searchApi';
 import Footer from './Footer';
@@ -11,6 +13,9 @@ function Drinks() {
   const [nameOfTheLastCategory, setNameOfTheLastCategory] = useState('');
   const maxLength = 12;
   const maxLengthCategory = 5;
+  const dispatch = useDispatch();
+  const resultSearch = useSelector((globalState) => globalState.searchBar.resultSearch);
+
   const componentDidMount = async () => {
     setFirstTwelveReceive(await firstTwelveCocktailApi());
     setAllCategoryName(await allCategoryDrinksApi());
@@ -27,6 +32,10 @@ function Drinks() {
     }
     setFirstTwelveReceive(await firstTwelveCocktailByCategoryApi(name));
   };
+
+  useEffect(() => {
+    dispatch(resultSearchAction(firstTwelveReceive));
+  }, [firstTwelveReceive]);
 
   return (
     <div>
@@ -52,7 +61,7 @@ function Drinks() {
           All
         </button>
       </div>
-      {firstTwelveReceive.slice(0, maxLength).map((receive, index) => (
+      {resultSearch.slice(0, maxLength).map((receive, index) => (
         <Link to={ `/drinks/${receive.idDrink}` } key={ receive.idDrink }>
           <div data-testid={ `${index}-recipe-card` }>
             <img

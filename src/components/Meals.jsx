@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { resultSearchAction } from '../redux/actions';
 import { allCategoryMealsApi, firstTwelveMealsApi,
   firstTwelveMealsByCategoryApi } from '../services/searchApi';
 import Footer from './Footer';
@@ -15,6 +17,8 @@ function Meals() {
     setFirstTwelveReceive(await firstTwelveMealsApi());
     setAllCategoryName(await allCategoryMealsApi());
   };
+  const resultSearch = useSelector((globalState) => globalState.searchBar.resultSearch);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     componentDidMount();
@@ -27,6 +31,10 @@ function Meals() {
     }
     setFirstTwelveReceive(await firstTwelveMealsByCategoryApi(name));
   };
+
+  useEffect(() => {
+    dispatch(resultSearchAction(firstTwelveReceive));
+  }, [firstTwelveReceive]);
 
   return (
     <div>
@@ -52,7 +60,7 @@ function Meals() {
           All
         </button>
       </div>
-      {firstTwelveReceive.slice(0, maxLength).map((receive, index) => (
+      {resultSearch.slice(0, maxLength).map((receive, index) => (
         <Link to={ `/meals/${receive.idMeal}` } key={ receive.idMeal }>
           <div data-testid={ `${index}-recipe-card` }>
             <img
