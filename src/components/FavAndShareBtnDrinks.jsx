@@ -23,7 +23,7 @@ function FavAndShareBtnDrinks() {
         data-testid="share-btn"
         className={ styles.share__icon }
         onClick={ () => {
-          copy(`http://localhost:3000/meals/${pathname.split('/')[2]}`);
+          copy(`http://localhost:3000/drinks/${pathname.split('/')[2]}`);
           const messageElement = document.getElementById('share-message');
           messageElement.innerText = 'Link copied!';
         } }

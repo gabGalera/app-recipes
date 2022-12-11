@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
+import styles from '../styles/DoneRecipes.module.css';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
 import shareIcon from '../images/shareIcon.svg';
 import allButton from '../images/allButton.svg';
@@ -18,43 +19,44 @@ function DoneRecipes() {
     doneRecipes
       .filter((recipe) => recipe.type === 'drink'));
   return (
-    <div>
+    <div
+      className={ styles.main__div }
+    >
       <Header title="Done Recipes" search={ false } />
-      <input
-        src={ allButton }
-        alt="all button"
-        type="image"
-        data-testid="filter-by-all-btn"
-        onClick={ () => setFilterParameters('all') }
-      />
-      <input
-        src={ foodIcon }
-        alt="food icon"
-        type="image"
-        data-testid="filter-by-meal-btn"
-        onClick={ () => setFilterParameters('meal') }
-      />
-      <input
-        src={ beverageIcon }
-        alt="beverage icon"
-        type="image"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => setFilterParameters('drink') }
-      />
+      <div
+        className={ styles.btn__div }
+      >
+        <input
+          src={ allButton }
+          alt="all button"
+          type="image"
+          data-testid="filter-by-all-btn"
+          onClick={ () => setFilterParameters('all') }
+        />
+        <input
+          src={ foodIcon }
+          alt="food icon"
+          type="image"
+          data-testid="filter-by-meal-btn"
+          onClick={ () => setFilterParameters('meal') }
+        />
+        <input
+          src={ beverageIcon }
+          alt="beverage icon"
+          type="image"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => setFilterParameters('drink') }
+        />
+      </div>
       {(filterParameters === 'all' ? (doneRecipes) : (filtering))
         .map((recipe, index) => (
-          <div key={ index }>
+          <div
+            key={ index }
+            className={ styles.recipe__container }
+          >
             <Link
-              style={ {
-                textDecoration: 'none',
-              } }
               to={ `/${recipe.type}s/${recipe.id}` }
             >
-              <h1
-                data-testid={ `${index}-horizontal-name` }
-              >
-                {recipe.name}
-              </h1>
               <img
                 src={ recipe.image }
                 alt={ recipe.name }
@@ -64,10 +66,69 @@ function DoneRecipes() {
                 } }
               />
             </Link>
-            <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{`${recipe.doneDate}`}</p>
+            <div
+              style={ {
+                marginLeft: '5%',
+              } }
+            >
+              <Link
+                style={ {
+                  textDecoration: 'none',
+                  color: 'black',
+                } }
+                to={ `/${recipe.type}s/${recipe.id}` }
+              >
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                  className={ styles.recipe__name }
+                >
+                  {recipe.name}
+                </p>
+              </Link>
+              {recipe.type === 'meal' ? (
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                  className={ styles.recipe__type }
+                >
+                  {`${recipe.nationality} - ${recipe.category}`}
+                </p>
+              ) : (
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                  className={ styles.recipe__type }
+                >
+                  {`${recipe.alcoholicOrNot} - ${recipe.category}`}
+                </p>
+              )}
+              <p
+                style={ { height: '0px', width: '0px', color: 'transparent' } }
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {recipe.category}
+              </p>
+              <p
+                data-testid={ `${index}-horizontal-done-date` }
+                className={ styles.done__date }
+              >
+                {`${recipe.doneDate}`}
+              </p>
+              <div style={ { display: 'flex' } }>
+                {
+                  recipe.tags.map((tag, tagIndex) => (
+                    <div
+                      key={ tagIndex }
+                      data-testid={ `${index}-${tag}-horizontal-tag` }
+                      className={ styles.tag__container }
+                    >
+                      {tag}
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
             <div>
               <input
+                className={ styles.share__btn }
                 src={ shareIcon }
                 alt="share icon"
                 type="image"
@@ -81,27 +142,6 @@ function DoneRecipes() {
               />
               <p id={ `${index}-share-message` } />
             </div>
-            {recipe.tags.map((tag, tagIndex) => (
-              <div
-                key={ tagIndex }
-                data-testid={ `${index}-${tag}-horizontal-tag` }
-              >
-                {tag}
-              </div>
-            ))}
-            {recipe.type === 'meal' ? (
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {`${recipe.nationality} - ${recipe.category}`}
-              </p>
-            ) : (
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                {`${recipe.alcoholicOrNot} - ${recipe.category}`}
-              </p>
-            )}
           </div>
         ))}
     </div>

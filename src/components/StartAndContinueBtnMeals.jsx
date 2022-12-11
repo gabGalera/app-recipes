@@ -39,7 +39,7 @@ function StartAndContinueBtnMeals() {
                 textTransform: 'uppercase',
 
                 color: '#FFFFFF',
-
+                textShadow: '0.5px 0.5px gray',
                 background: '#FCC436',
                 borderRadius: '5px',
               } }
@@ -75,7 +75,7 @@ function StartAndContinueBtnMeals() {
               textTransform: 'uppercase',
 
               color: '#FFFFFF',
-
+              textShadow: '0.5px 0.5px gray',
               background: '#FCC436',
               borderRadius: '5px',
             } }

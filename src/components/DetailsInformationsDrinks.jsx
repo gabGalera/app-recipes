@@ -34,7 +34,15 @@ function DetailsInformationsDrinks() {
   }, []);
 
   return (
-    <div>
+    <div
+      style={ {
+        maxWidth: '360px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+      } }
+    >
       <div>
         <img
           className={ styles.main__img }

@@ -91,10 +91,12 @@ h1 {
   overflow-x: scroll;
 }
 
-.carousel::-webkit-scrollbar {
-  display: none;
-}
+/* .carousel::-webkit-scrollbar {
+  /* border-radius: 10px; */
 
+/* display: none; */
+
+/* } */
 .video {
   height: 30vh;
   margin: 0 5%;
