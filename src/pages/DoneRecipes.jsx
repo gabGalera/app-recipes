@@ -24,6 +24,7 @@ function DoneRecipes() {
         display: 'flex',
         justifyContent: 'center',
         background: 'rgba(65, 25, 127, 1)',
+        width: '100%',
       } }
     >
       <div
@@ -34,6 +35,7 @@ function DoneRecipes() {
           className={ styles.btn__div }
         >
           <input
+            className={ styles.input__images }
             src={ allButton }
             alt="all button"
             type="image"
@@ -41,6 +43,7 @@ function DoneRecipes() {
             onClick={ () => setFilterParameters('all') }
           />
           <input
+            className={ styles.input__images }
             src={ foodIcon }
             alt="food icon"
             type="image"
@@ -48,6 +51,7 @@ function DoneRecipes() {
             onClick={ () => setFilterParameters('meal') }
           />
           <input
+            className={ styles.input__images }
             src={ beverageIcon }
             alt="beverage icon"
             type="image"
@@ -65,19 +69,13 @@ function DoneRecipes() {
                 to={ `/${recipe.type}s/${recipe.id}` }
               >
                 <img
+                  className={ styles.recipe__image }
                   src={ recipe.image }
                   alt={ recipe.name }
                   data-testid={ `${index}-horizontal-image` }
-                  style={ {
-                    width: '180px',
-                  } }
                 />
               </Link>
-              <div
-                style={ {
-                  marginLeft: '5%',
-                } }
-              >
+              <div className={ styles.text__div }>
                 <Link
                   style={ {
                     textDecoration: 'none',
