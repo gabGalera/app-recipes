@@ -45,12 +45,19 @@ function RecipeInProgress() {
 
   if (type === 'meals') {
     return (
-      <>
+      <div
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+          background: 'rgba(65, 25, 127, 1)',
+        } }
+      >
         <FavAndShareBtnMeals />
         <DetailsInformationsMeals />
         <button
           type="button"
           id="finish-recipe-btn"
+          // disabled
           data-testid="finish-recipe-btn"
           onClick={ () => {
             const doneRecipes = JSONDoneRecipesReader;
@@ -68,14 +75,45 @@ function RecipeInProgress() {
             localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
             history.push('/done-recipes');
           } }
+          style={ {
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'fixed',
+            bottom: '0px',
+            width: '90%',
+            height: 'auto',
+            left: '4.5%',
+
+            fontFamily: 'Epilogue',
+            fontStyle: 'normal',
+            fontWeight: '700',
+            // fontSize: '14px',
+            // lineHeight: '14px',
+            textAlign: 'center',
+            letterSpacing: '0.03em',
+            textTransform: 'uppercase',
+
+            color: '#FFFFFF',
+
+            background: '#FCC436',
+            textShadow: '0.5px 0.5px gray',
+            borderRadius: '5px',
+          } }
         >
           Finish Recipe
         </button>
-      </>
+      </div>
     );
   }
   return (
-    <>
+    <div
+      style={ {
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'rgba(65, 25, 127, 1)',
+      } }
+    >
       <FavAndShareBtnDrinks />
       <DetailsInformationsDrinks />
       <button
@@ -98,10 +136,35 @@ function RecipeInProgress() {
           localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
           history.push('/done-recipes');
         } }
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'fixed',
+          bottom: '0px',
+          width: '90%',
+          height: 'auto',
+          left: '4.5%',
+
+          fontFamily: 'Epilogue',
+          fontStyle: 'normal',
+          fontWeight: '700',
+          // fontSize: '14px',
+          // lineHeight: '14px',
+          textAlign: 'center',
+          letterSpacing: '0.03em',
+          textTransform: 'uppercase',
+
+          color: '#FFFFFF',
+
+          background: '#FCC436',
+          textShadow: '0.5px 0.5px gray',
+          borderRadius: '5px',
+        } }
       >
         Finish Recipe
       </button>
-    </>
+    </div>
   );
 }
 

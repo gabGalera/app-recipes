@@ -20,8 +20,28 @@ function StartAndContinueBtnMeals() {
               type="button"
               data-testid="start-recipe-btn"
               style={ {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 position: 'fixed',
                 bottom: '0px',
+                width: '90%',
+                height: 'auto',
+                left: '4.5%',
+
+                fontFamily: 'Epilogue',
+                fontStyle: 'normal',
+                fontWeight: '700',
+                // fontSize: '14px',
+                // lineHeight: '14px',
+                textAlign: 'center',
+                letterSpacing: '0.03em',
+                textTransform: 'uppercase',
+
+                color: '#FFFFFF',
+                textShadow: '0.5px 0.5px gray',
+                background: '#FCC436',
+                borderRadius: '5px',
               } }
             >
               Start Recipe
@@ -36,8 +56,28 @@ function StartAndContinueBtnMeals() {
             type="button"
             data-testid="start-recipe-btn"
             style={ {
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
               position: 'fixed',
               bottom: '0px',
+              width: '90%',
+              height: 'auto',
+              left: '4.5%',
+
+              fontFamily: 'Epilogue',
+              fontStyle: 'normal',
+              fontWeight: '700',
+              // fontSize: '14px',
+              // lineHeight: '14px',
+              textAlign: 'center',
+              letterSpacing: '0.03em',
+              textTransform: 'uppercase',
+
+              color: '#FFFFFF',
+              textShadow: '0.5px 0.5px gray',
+              background: '#FCC436',
+              borderRadius: '5px',
             } }
           >
             Continue Recipe

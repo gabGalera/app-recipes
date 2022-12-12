@@ -1,0 +1,16 @@
+.main__container {
+  align-items: flex-end;
+  display: flex;
+  position: absolute;
+  right: 1%;
+  top: 1%;
+  width: 65px;
+  z-index: 2;
+}
+
+.share__icon, .fav__icon {
+  filter: invert(76%)
+    sepia(70%) saturate(491%) hue-rotate(344deg) brightness(99%) contrast(101%);
+  margin: 5%;
+}
+

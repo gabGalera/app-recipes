@@ -44,7 +44,14 @@ function RecipeDetails() {
 
   if (pathname.split('/')[1] === 'meals') {
     return (
-      <div>
+      <div
+        id="main div"
+        style={ {
+          display: 'flex',
+          justifyContent: 'center',
+          background: 'rgba(65, 25, 127, 1)',
+        } }
+      >
         <FavAndShareBtnMeals />
         <DetailsInformationsMeals />
         <StartAndContinueBtnMeals />
@@ -53,7 +60,14 @@ function RecipeDetails() {
   }
 
   return (
-    <div>
+    <div
+      id="main div"
+      style={ {
+        display: 'flex',
+        justifyContent: 'center',
+        background: 'rgba(65, 25, 127, 1)',
+      } }
+    >
       <FavAndShareBtnDrinks />
       <DetailsInformationsDrinks />
       <StartAndContinueBtnDrinks />
