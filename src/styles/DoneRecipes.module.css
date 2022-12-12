@@ -53,7 +53,7 @@
   font-style: normal;
   font-weight: 300;
   line-height: 10px;
-  margin-bottom: 30%;
+  margin-bottom: 25%;
   margin-right: 50%;
   width: 100%;
 }
@@ -93,6 +93,7 @@
 
 .text__div {
   margin-left: -25%;
+  width: 85%;
 }
 
 .recipe__image {
