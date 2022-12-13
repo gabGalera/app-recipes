@@ -32,6 +32,7 @@ function Header({ title, search, image }) {
           <span style={ { color: 'rgba(65, 25, 127, 1)' } }>Trybers</span>
         </h2>
         <input
+          data-testid="profile-top-btn"
           className={ styles.user__icon }
           src={ userIcon }
           alt="profile"
