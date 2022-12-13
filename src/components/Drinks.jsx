@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { GiRiceCooker } from 'react-icons/gi';
 import { resultSearchAction } from '../redux/actions';
 import { allCategoryDrinksApi,
   firstTwelveCocktailApi, firstTwelveCocktailByCategoryApi } from '../services/searchApi';
@@ -39,7 +40,20 @@ function Drinks() {
 
   return (
     <div>
-      <Header title="Drinks" search />
+      <Header
+        title="Drinks"
+        search
+        image={
+          <GiRiceCooker
+            style={ {
+              width: '5%',
+              height: '5%',
+              filter: `invert(9%) sepia(91%) saturate(3654%) 
+          hue-rotate(261deg) brightness(90%) contrast(97%)`,
+            } }
+          />
+        }
+      />
       <div>
         {allCategoryName.slice(0, maxLengthCategory).map((category) => (
           <button

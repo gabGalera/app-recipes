@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import Header from '../components/Header';
 import styles from '../styles/DoneRecipes.module.css';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
@@ -30,7 +31,21 @@ function DoneRecipes() {
       <div
         className={ styles.main__div }
       >
-        <Header title="Done Recipes" search={ false } />
+        <Header
+          title="Done Recipes"
+          search={ false }
+          image={ <IoMdCheckmarkCircleOutline
+            style={ {
+              display: 'flex',
+              textAlign: 'center',
+              height: '15%',
+              width: '15%',
+              color: 'rgba(252, 196, 54, 1)',
+              justifyContent: 'center',
+              // marginTop: '20%',
+            } }
+          /> }
+        />
         <div
           className={ styles.btn__div }
         >
