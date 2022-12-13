@@ -23,7 +23,7 @@ function DoneRecipes() {
       style={ {
         display: 'flex',
         justifyContent: 'center',
-        background: 'rgba(65, 25, 127, 1)',
+        backgroundColor: 'rgba(65, 25, 127, 1)',
         width: '100%',
       } }
     >
@@ -67,6 +67,7 @@ function DoneRecipes() {
             >
               <Link
                 to={ `/${recipe.type}s/${recipe.id}` }
+                style={ { width: '30%', height: '100%' } }
               >
                 <img
                   className={ styles.recipe__image }
@@ -117,7 +118,7 @@ function DoneRecipes() {
                 >
                   {`${recipe.doneDate}`}
                 </p>
-                <div style={ { display: 'flex' } }>
+                <div className={ styles.tag }>
                   {
                     recipe.tags.map((tag, tagIndex) => (
                       <div
@@ -131,7 +132,7 @@ function DoneRecipes() {
                   }
                 </div>
               </div>
-              <div>
+              <div className={ styles.divDone }>
                 <input
                   className={ styles.share__btn }
                   src={ shareIcon }
@@ -145,7 +146,7 @@ function DoneRecipes() {
                     messageElement.innerText = 'Link copied!';
                   } }
                 />
-                <p id={ `${index}-share-message` } />
+                <p id={ `${index}-share-message` } className={ styles.p_divDone } />
               </div>
             </div>
           ))}
