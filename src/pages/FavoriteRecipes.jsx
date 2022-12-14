@@ -6,7 +6,7 @@ import fav from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const componentDidMount = () => {
     const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     return favRecipes !== null ? setFavoriteRecipes(favRecipes)
@@ -15,11 +15,11 @@ function FavoriteRecipes() {
   useEffect(() => { componentDidMount(); }, []);
 
   const UnFavRecipe = ({ target: { name } }) => {
-    setIsLoading(true);
+    // setIsLoading(true);
     const favRecipesFilter = favoriteRecipes.filter(({ id }) => +id !== +name);
     setFavoriteRecipes(favRecipesFilter);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favRecipesFilter));
-    setIsLoading(false);
+    // setIsLoading(false);
   };
 
   const filterAll = () => {
@@ -75,7 +75,7 @@ function FavoriteRecipes() {
         Drinks
 
       </button>
-      {isLoading ? <p>loading...</p> : favoriteRecipes.map((favRecipe, index) => (
+      {favoriteRecipes.map((favRecipe, index) => (
         <div key={ favRecipe.id } id={ favRecipe.id }>
           <Link
             to={ `${favRecipe
