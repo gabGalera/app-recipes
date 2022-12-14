@@ -70,7 +70,7 @@ function RecipeInProgress() {
               alcoholicOrNot: '',
               name: API[0].strMeal,
               image: API[0].strMealThumb,
-              tags: API[0].strTags ? API[0].strTags.split(',') : [],
+              tags: API[0].strTags.split(','),
             });
             localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
             history.push('/done-recipes');
@@ -131,7 +131,7 @@ function RecipeInProgress() {
             alcoholicOrNot: API[0].strAlcoholic,
             name: API[0].strDrink,
             image: API[0].strDrinkThumb,
-            tags: API[0].strTags ? API[0].strTags.split(',') : [],
+            tags: [],
           });
           localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
           history.push('/done-recipes');

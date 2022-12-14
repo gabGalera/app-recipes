@@ -1,6 +1,7 @@
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import styles from '../styles/RecipeDetails.module.css';
 import { JSONDoneRecipesReader,
   JSONInProgressRecipesReader } from '../helpers/JSONReaders';
 
@@ -8,46 +9,25 @@ function StartAndContinueBtnDrinks() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const id = pathname.split('/')[2];
-  const [doneRecipes] = useState(JSONDoneRecipesReader);
+  // const [doneRecipes] = useState(JSONDoneRecipesReader);
   const [inProgressRecipes] = useState(JSONInProgressRecipesReader);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
     <div>
       <div>
-        {!doneRecipes.some((entry) => entry.id === API[0].idDrink) && (
-          <Link to={ `./${id}/in-progress` }>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              style={ {
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                position: 'fixed',
-                bottom: '0px',
-                width: '90%',
-                height: 'auto',
-                left: '4.5%',
-
-                fontFamily: 'Epilogue',
-                fontStyle: 'normal',
-                fontWeight: '700',
-                // fontSize: '14px',
-                // lineHeight: '14px',
-                textAlign: 'center',
-                letterSpacing: '0.03em',
-                textTransform: 'uppercase',
-
-                color: '#FFFFFF',
-                textShadow: '0.5px 0.5px gray',
-                background: '#FCC436',
-                borderRadius: '5px',
-              } }
-            >
-              Start Recipe
-            </button>
-          </Link>
-        )}
+        {!Object.keys(inProgressRecipes.drinks)
+          .some((entry) => entry === API[0].idDrink)
+          && (
+            <Link to={ `./${id}/in-progress` }>
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className={ styles.start__btn }
+              >
+                Start Recipe
+              </button>
+            </Link>
+          )}
         {Object.keys(inProgressRecipes.drinks)
           .some((entry) => entry === API[0].idDrink)
           && (
@@ -55,30 +35,7 @@ function StartAndContinueBtnDrinks() {
               <button
                 type="button"
                 data-testid="start-recipe-btn"
-                style={ {
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  position: 'fixed',
-                  bottom: '0px',
-                  width: '90%',
-                  height: 'auto',
-                  left: '4.5%',
-
-                  fontFamily: 'Epilogue',
-                  fontStyle: 'normal',
-                  fontWeight: '700',
-                  // fontSize: '14px',
-                  // lineHeight: '14px',
-                  textAlign: 'center',
-                  letterSpacing: '0.03em',
-                  textTransform: 'uppercase',
-
-                  color: '#FFFFFF',
-                  textShadow: '0.5px 0.5px gray',
-                  background: '#FCC436',
-                  borderRadius: '5px',
-                } }
+                className={ styles.continue__btn }
               >
                 Continue Recipe
               </button>

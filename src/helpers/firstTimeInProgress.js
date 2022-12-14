@@ -1,18 +1,20 @@
 import ingredientStyles from '../styles/RecipeInProgress.module.css';
 
 const firstTimeInProgress = ({ API, type, id, inProgressRecipes, ingredients }) => {
-  ingredients
-    .forEach((ingredient) => {
-      if (inProgressRecipes[type][id]) {
-        inProgressRecipes[type][id].push(({ [ingredient]: false }));
-        inProgressRecipes[type][id]
-          .filter(
-            (entry, index) => inProgressRecipes[type][id].indexOf(entry) === index,
-          );
-      } else {
-        inProgressRecipes[type][id] = [({ [ingredient]: false })];
-      }
-    });
+  if (!inProgressRecipes[type][id]) {
+    ingredients
+      .forEach((ingredient) => {
+        if (inProgressRecipes[type][id]) {
+          inProgressRecipes[type][id].push(({ [ingredient]: false }));
+          inProgressRecipes[type][id]
+            .filter(
+              (entry, index) => inProgressRecipes[type][id].indexOf(entry) === index,
+            );
+        } else {
+          inProgressRecipes[type][id] = [({ [ingredient]: false })];
+        }
+      });
+  }
 
   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   const JSX = (
@@ -30,6 +32,7 @@ const firstTimeInProgress = ({ API, type, id, inProgressRecipes, ingredients }) 
           >
             <input
               type="checkbox"
+              className={ `check-ingredients-${index}` }
               id={ `check-ingredients-${index}` }
               onChange={ ({ target }) => {
                 if (target.checked) {

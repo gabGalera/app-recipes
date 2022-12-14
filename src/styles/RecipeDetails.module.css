@@ -136,3 +136,49 @@ h1 {
   box-sizing: border-box;
   margin: 0 12px 12px;
 }
+
+.start__btn {
+  align-items: center ,;
+  background: #fcc436;
+  border-radius: 5px;
+  bottom: 0;
+  color: white;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: auto;
+  justify-content: center;
+  left: 4.5%;
+  letter-spacing: 0.03em;
+  line-height: 14px;
+  position: fixed;
+  text-align: center;
+  text-shadow: 0.5px 0.5px gray;
+  text-transform: uppercase;
+  width: 90%;
+}
+
+.continue__btn {
+  align-items: center;
+  background: #fcc436;
+  border-radius: 5px;
+  bottom: 0;
+  color: white;
+  display: flex;
+  font-family: Epilogue , sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: auto;
+  justify-content: center;
+  left: 4.5%;
+  letter-spacing: 0.03em;
+  line-height: 14px;
+  position: fixed;
+  text-align: center;
+  text-shadow: 0.5px 0.5px gray;
+  text-transform: uppercase;
+  width: 90%;
+}
