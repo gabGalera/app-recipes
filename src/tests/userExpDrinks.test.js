@@ -21,8 +21,9 @@ describe('User experience', () => {
   const execButton = 'exec-search-btn';
 
   jest.setTimeout(32000);
+  let finalPath = [];
 
-  test('Testes para user experience com drinks', async () => {
+  test('Testa se sai do login', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     const inputEmail = screen.getByTestId(dataTestIdEmail);
     const inputSenha = screen.getByTestId(dataTestIdPassword);
@@ -33,8 +34,13 @@ describe('User experience', () => {
     userEvent.click(loginButton);
     expect(history.location.pathname).toEqual('/meals');
 
-    userEvent.click(screen.getByTestId('drinks-bottom-btn'));
+    finalPath = history.location.pathname;
+  });
 
+  test('Testa se chega no componente drinks e seus botões de filtro', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
+    // screen.debug();
+    userEvent.click(screen.getByTestId('drinks-bottom-btn'));
     await waitFor(
       () => screen.findByTestId('0-card-img'),
     );
@@ -99,7 +105,11 @@ describe('User experience', () => {
     );
 
     userEvent.click(screen.getByTestId('drinks-bottom-btn'));
+    finalPath = history.location.pathname;
+  });
 
+  test('Testa recipe details', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     const img = await screen.findByTestId('0-card-img');
     expect(img).toBeInTheDocument();
     userEvent.click(img);
@@ -122,6 +132,11 @@ describe('User experience', () => {
     userEvent.click(favoriteButton);
     userEvent.click(favoriteButton);
     userEvent.click(startButton);
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa recipe in progress', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
 
     await waitFor(
       () => screen.findByTestId(recipeTitleStr),
@@ -141,7 +156,11 @@ describe('User experience', () => {
     const finishButton = await screen.findByTestId('finish-recipe-btn');
     expect(finishButton).not.toBeDisabled();
     userEvent.click(finishButton);
+    finalPath = history.location.pathname;
+  });
 
+  test('Testa se sai da done recipes para o profile e faz testes', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     await waitFor(
       () => screen.findByTestId(profileBtnStr),
       { timeout: 10000 },
@@ -167,10 +186,14 @@ describe('User experience', () => {
       () => screen.findByText(/continue/i),
       { timeout: 10000 },
     );
-
     const continueBtn = await screen.findByText(/continue/i);
 
     userEvent.click(continueBtn);
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa o continue buttom', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
 
     await waitFor(
       () => screen.findByText(/finish/i),
@@ -179,6 +202,11 @@ describe('User experience', () => {
 
     userEvent.click(await screen.findByText(/finish/i));
 
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa os botões da done recipes', async () => {
+    renderWithRouterAndRedux(<App />, finalPath);
     userEvent.click(screen.getByTestId('filter-by-all-btn'));
     userEvent.click(screen.getByTestId('filter-by-meal-btn'));
     userEvent.click(screen.getByTestId('filter-by-drink-btn'));

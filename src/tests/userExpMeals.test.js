@@ -15,13 +15,15 @@ describe('User experience', () => {
 
   jest.setTimeout(32000);
 
-  test('Testes para user experience com meals', async () => {
-    const mockClipboard = {
-      writeText: jest.fn(),
-    };
-    global.navigator.clipboard = mockClipboard;
+  const mockClipboard = {
+    writeText: jest.fn(),
+  };
+  global.navigator.clipboard = mockClipboard;
 
-    global.alert = jest.fn();
+  global.alert = jest.fn();
+  let finalPath = [];
+
+  test('Testa se sai do login', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     const inputEmail = screen.getByTestId(dataTestIdEmail);
     const inputSenha = screen.getByTestId(dataTestIdPassword);
@@ -31,7 +33,11 @@ describe('User experience', () => {
     expect(loginButton).toBeEnabled();
     userEvent.click(loginButton);
     expect(history.location.pathname).toEqual('/meals');
+    finalPath = history.location.pathname;
+  });
 
+  test('Testa a search bar', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     await waitFor(
       () => screen.findByTestId('Beef-category-filter'),
       { timeout: 10000 },
@@ -58,12 +64,15 @@ describe('User experience', () => {
     );
 
     userEvent.click(await screen.findByTestId('All-category-filter'));
-
     const img = await screen.findByTestId(cardImg0);
 
     expect(img).toBeInTheDocument();
     userEvent.click(img);
+    finalPath = history.location.pathname;
+  });
 
+  test('Testa recipeDetails', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     const loading = screen.getByText(/loading/i);
     expect(loading).toBeInTheDocument();
 
@@ -82,11 +91,16 @@ describe('User experience', () => {
     userEvent.click(favoriteButton);
     userEvent.click(favoriteButton);
     userEvent.click(startButton);
+
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa recipe in progress', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     await waitFor(
       () => screen.findByTestId(recipeTitleStr),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
-
     const ingredientsId = await screen.findAllByRole('checkbox');
     userEvent.click(ingredientsId[0]);
     expect(ingredientsId[0]).toBeChecked();
@@ -99,10 +113,14 @@ describe('User experience', () => {
       });
     const finishButton = await screen.findByTestId('finish-recipe-btn');
     userEvent.click(finishButton);
+    finalPath = history.location.pathname;
+  });
 
+  test('Testa done recipes', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     await waitFor(
       () => screen.findByTestId(profileBtnStr),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
     const userBtn = await screen.findByTestId(profileBtnStr);
     userEvent.click(userBtn);
@@ -112,10 +130,15 @@ describe('User experience', () => {
     const corbaRecipe = await screen.findByTestId('0-horizontal-name');
     expect(corbaRecipe).toBeInTheDocument();
     userEvent.click(corbaRecipe);
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa continue buttom', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
 
     await waitFor(
       () => screen.findByText(/continue/i),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
     const continueBtn = await screen.findByText(/continue/i);
 
@@ -123,30 +146,40 @@ describe('User experience', () => {
     userEvent.click(continueBtn);
     await waitFor(
       () => screen.findByText(/finish/i),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
 
     userEvent.click(await screen.findByText(/finish/i));
     userEvent.click(await screen.findByTestId(profileBtnStr));
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa se volta do profile para o componente drinks', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     userEvent.click(await screen.findByTestId('drinks-bottom-btn'));
 
     await waitFor(
       () => screen.findByTestId(cardImg0),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
 
     userEvent.click(screen.getByTestId(cardImg0));
     await waitFor(
       () => screen.findByTestId(recipeTitleStr),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
 
     userEvent.click(await screen.findByTestId(favoriteBtn));
     userEvent.click(await screen.findByTestId('start-recipe-btn'));
-    screen.debug();
+
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa se dá para fazer um drink', async () => {
+    const { history } = renderWithRouterAndRedux(<App />, finalPath);
     await waitFor(
       () => screen.findByTestId(recipeTitleStr),
-      { timeout: 30000 },
+      { timeout: 10000 },
     );
 
     const ingredientsId2 = await screen.findAllByRole('checkbox');
@@ -160,6 +193,12 @@ describe('User experience', () => {
       });
 
     userEvent.click(await screen.findByTestId('finish-recipe-btn'));
+
+    finalPath = history.location.pathname;
+  });
+
+  test('Testa os botões de filtro da done recipes e do profile', async () => {
+    renderWithRouterAndRedux(<App />, finalPath);
 
     userEvent.click(await screen.findByTestId('filter-by-all-btn'));
     userEvent.click(await screen.findByTestId('filter-by-meal-btn'));
