@@ -182,5 +182,20 @@ describe('User experience', () => {
     userEvent.click(screen.getByTestId('filter-by-all-btn'));
     userEvent.click(screen.getByTestId('filter-by-meal-btn'));
     userEvent.click(screen.getByTestId('filter-by-drink-btn'));
+
+    const userBtn2 = await screen.findByTestId(profileBtnStr);
+    userEvent.click(userBtn2);
+
+    const favBtn2 = await screen.findByTestId('profile-favorite-btn');
+    userEvent.click(favBtn2);
+
+    const favHorizontalFav = await screen.findByTestId('0-horizontal-favorite-btn');
+    userEvent.click(favHorizontalFav);
+  });
+
+  test('testa favoriteRecipes sem receita', async () => {
+    localStorage.clear();
+    renderWithRouterAndRedux(<App />, '/favorite-recipes');
+    expect(global.alert).toHaveBeenCalled();
   });
 });
