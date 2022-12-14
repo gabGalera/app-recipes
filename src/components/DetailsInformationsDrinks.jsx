@@ -75,7 +75,7 @@ function DetailsInformationsDrinks() {
           data-testid="recipe-category"
           className={ styles.recipe__category }
         >
-          {API[0].strCategory}
+          {API[0].strAlcoholic}
         </p>
       </div>
       <h1>

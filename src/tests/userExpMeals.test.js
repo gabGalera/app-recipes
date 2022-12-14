@@ -90,6 +90,7 @@ describe('User experience', () => {
     ingredientsId
       .forEach((id) => {
         userEvent.click(id);
+        expect(id).toBeChecked();
       });
     const finishButton = await screen.findByTestId('finish-recipe-btn');
     userEvent.click(finishButton);

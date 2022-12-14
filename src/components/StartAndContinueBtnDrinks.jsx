@@ -8,7 +8,6 @@ function StartAndContinueBtnDrinks() {
   const history = useHistory();
   const { location: { pathname } } = history;
   const id = pathname.split('/')[2];
-  // const [doneRecipes] = useState(JSONDoneRecipesReader);
   const [inProgressRecipes] = useState(JSONInProgressRecipesReader);
   const API = useSelector((state) => state.recipeDetails.API);
   return (
