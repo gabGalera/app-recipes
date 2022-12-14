@@ -74,10 +74,7 @@ function Meals() {
         className={ styles.input__divs }
       >
         <input
-          style={ {
-            margin: '3% 0 3% 0',
-            width: '5rem',
-          } }
+          className={ styles.img__input }
           data-testid="All-category-filter"
           alt="all-buttom"
           type="image"
@@ -87,10 +84,7 @@ function Meals() {
         />
         {allCategoryName.slice(0, maxLengthCategory).map((category) => (
           <input
-            style={ {
-              margin: '3% 0 3% 0',
-              width: '5rem',
-            } }
+            className={ styles.img__input }
             src={ objImages[category.strCategory] }
             alt={ category.strCategory }
             type="image"

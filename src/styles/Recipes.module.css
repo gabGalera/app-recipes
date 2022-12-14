@@ -27,3 +27,42 @@
   text-align: center;
   width: 40%;
 }
+
+.img__input {
+  margin: 3% 0;
+  width: 5rem;
+
+}
+
+.footer__container {
+  background-color: rgba(65, 25, 127, 1);
+  bottom: 0;
+  display: flex;
+  height: 10%;
+  justify-content: space-between;
+  max-width: 1024px;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.footer__input {
+  filter: invert(90%) sepia(11%)
+    saturate(3754%) hue-rotate(330deg) brightness(105%) contrast(98%);
+  height: 3rem;
+  margin: 1.5rem 1rem;
+  width: 12rem;
+}
+
+@media ( max-width : 1000px ) {
+
+  .img__input {
+    height: 3.5rem;
+    width: 3rem;
+  }
+
+  .footer__input {
+    height: 2rem;
+    margin-top: 1rem;
+  }
+}

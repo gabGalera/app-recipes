@@ -18,15 +18,16 @@
 .user__icon {
   filter: invert(19%) sepia(35%) saturate(2837%) hue-rotate(242deg)
     brightness(91%) contrast(116%);
-  width: 4%;
+  width: 5%;
 }
 
 .search__bar__img__title__div {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-top: 3vh;
-  width: 100%;
+  margin: 1vh;
+
+  /* width: 98vw; */
 }
 
 .search__bar__div {
@@ -39,7 +40,7 @@
 }
 
 .bell__hearth {
-  width: 4%;
+  width: 5%;
 }
 
 .search__button {
@@ -55,7 +56,9 @@
 
 .input__container {
   display: flex;
+  font-size: 14px;
   justify-content: space-around;
+  padding: 1rem 0;
   width: 100%;
 }
 

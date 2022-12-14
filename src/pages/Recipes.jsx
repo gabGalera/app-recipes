@@ -12,7 +12,7 @@ function Recipes() {
         display: 'flex',
         justifyContent: 'center',
         width: '100%',
-        backgroundColor: 'rgba(65, 25, 127, 1)',
+        // backgroundColor: 'rgba(65, 25, 127, 1)',
       } }
     >
       {pathname === '/meals' ? <Meals /> : <Drinks />}

@@ -11,7 +11,7 @@ function Header({ title, search, image }) {
   return (
     <div
       style={ {
-        width: '99.2vw',
+        width: '100%',
       } }
     >
       <div
