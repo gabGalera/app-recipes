@@ -7,7 +7,14 @@ function Recipes() {
   const history = useHistory();
   const { location: { pathname } } = history;
   return (
-    <div>
+    <div
+      style={ {
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        backgroundColor: 'rgba(65, 25, 127, 1)',
+      } }
+    >
       {pathname === '/meals' ? <Meals /> : <Drinks />}
     </div>
   );
