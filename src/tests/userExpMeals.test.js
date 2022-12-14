@@ -32,6 +32,11 @@ describe('User experience', () => {
     userEvent.click(loginButton);
     expect(history.location.pathname).toEqual('/meals');
 
+    await waitFor(
+      () => screen.findByTestId('Beef-category-filter'),
+      { timeout: 10000 },
+    );
+
     userEvent.click(await screen.findByTestId('Beef-category-filter'));
     userEvent.click(await screen.findByTestId('Breakfast-category-filter'));
     userEvent.click(await screen.findByTestId('Chicken-category-filter'));
