@@ -5,10 +5,25 @@ import { GiRiceCooker } from 'react-icons/gi';
 import { resultSearchAction } from '../redux/actions';
 import { allCategoryMealsApi, firstTwelveMealsApi,
   firstTwelveMealsByCategoryApi } from '../services/searchApi';
+import styles from '../styles/Recipes.module.css';
+import imgAll from '../images/All.svg';
+import imgBeef from '../images/beef.svg';
+import imgBreakfast from '../images/breakfast.svg';
+import imgChicken from '../images/chicken.svg';
+import imgDessert from '../images/dessert.svg';
+import imgGoat from '../images/goat.svg';
 import Footer from './Footer';
 import Header from './Header';
 
 function Meals() {
+  const objImages = {
+    All: imgAll,
+    Beef: imgBeef,
+    Breakfast: imgBreakfast,
+    Chicken: imgChicken,
+    Dessert: imgDessert,
+    Goat: imgGoat,
+  };
   const [firstTwelveReceive, setFirstTwelveReceive] = useState([]);
   const [allCategoryName, setAllCategoryName] = useState([]);
   const [nameOfTheLastCategory, setNameOfTheLastCategory] = useState('');
@@ -38,54 +53,91 @@ function Meals() {
   }, [firstTwelveReceive]);
 
   return (
-    <div>
+    <div
+      className={ styles.recipe__container }
+    >
       <Header
         title="Meals"
         search
         image={
           <GiRiceCooker
             style={ {
-              width: '5%',
-              height: '5%',
+              width: '5rem',
+              height: '5rem',
               filter: `invert(9%) sepia(91%) saturate(3654%) 
           hue-rotate(261deg) brightness(90%) contrast(97%)`,
             } }
           />
         }
       />
-      <div>
+      <div
+        className={ styles.input__divs }
+      >
+        <input
+          style={ {
+            margin: '3% 0 3% 0',
+            width: '5rem',
+          } }
+          data-testid="All-category-filter"
+          alt="all-buttom"
+          type="image"
+          name="all"
+          src={ imgAll }
+          onClick={ onClickFilter }
+        />
         {allCategoryName.slice(0, maxLengthCategory).map((category) => (
-          <button
-            type="button"
+          <input
+            style={ {
+              margin: '3% 0 3% 0',
+              width: '5rem',
+            } }
+            src={ objImages[category.strCategory] }
+            alt={ category.strCategory }
+            type="image"
             name={ category.strCategory }
             data-testid={ `${category.strCategory}-category-filter` }
             key={ category.strCategory }
             onClick={ onClickFilter }
-          >
-            {category.strCategory}
-          </button>
+          />
+
         ))}
-        <button
-          data-testid="All-category-filter"
-          type="button"
-          name="all"
-          onClick={ onClickFilter }
-        >
-          All
-        </button>
       </div>
-      {resultSearch.slice(0, maxLength).map((receive, index) => (
-        <Link to={ `/meals/${receive.idMeal}` } key={ receive.idMeal }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              src={ receive.strMealThumb }
-              alt={ receive.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{receive.strMeal}</p>
-          </div>
-        </Link>
-      ))}
+      <div
+        style={ {
+          textAlign: 'center',
+          maxWidth: '1024px',
+        } }
+      >
+        {resultSearch.slice(0, maxLength).map((receive, index) => (
+          <Link
+            to={ `/meals/${receive.idMeal}` }
+            key={ receive.idMeal }
+            style={ {
+              color: 'black',
+            } }
+          >
+            <div
+              className={ styles.img__container }
+              data-testid={ `${index}-recipe-card` }
+            >
+              <img
+                style={ {
+                  width: '100%',
+                  borderRadius: '5px 5px 0 0',
+                } }
+                src={ receive.strMealThumb }
+                alt={ receive.strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                {receive.strMeal}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
       <Footer />
     </div>
   );

@@ -1,0 +1,29 @@
+.recipe__container {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  max-width: 1024px;
+}
+
+.input__divs {
+  align-items: center;
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 1%;
+  max-width: 1024px;
+  width: 100%;
+}
+
+.img__container {
+  background: white;
+  border: 0.517px solid #b1b1b1;
+  border-radius: 5px;
+  box-shadow: 0 0 0 0.8px;
+  display: inline-block;
+  margin: 0 5px 10px;
+  text-align: center;
+  width: 40%;
+}
