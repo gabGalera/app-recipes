@@ -2,8 +2,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import styles from '../styles/RecipeDetails.module.css';
-import { JSONDoneRecipesReader,
-  JSONInProgressRecipesReader } from '../helpers/JSONReaders';
+import { JSONInProgressRecipesReader } from '../helpers/JSONReaders';
 
 function StartAndContinueBtnDrinks() {
   const history = useHistory();

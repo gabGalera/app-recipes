@@ -5,7 +5,6 @@ import App from '../App';
 import renderWithRouterAndRedux from './renderWithRouterAndRedux';
 
 describe('User experience', () => {
-  // ------ option 1 -----
   const mockClipboard = {
     writeText: jest.fn(),
   };
