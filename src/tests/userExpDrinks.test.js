@@ -205,7 +205,7 @@ describe('User experience', () => {
     finalPath = history.location.pathname;
   });
 
-  test('Testa os botões da done recipes', async () => {
+  test('Testa os botões da done recipes e do favorite recipes', async () => {
     renderWithRouterAndRedux(<App />, finalPath);
     userEvent.click(screen.getByTestId('filter-by-all-btn'));
     userEvent.click(screen.getByTestId('filter-by-meal-btn'));
@@ -217,8 +217,19 @@ describe('User experience', () => {
     const favBtn2 = await screen.findByTestId('profile-favorite-btn');
     userEvent.click(favBtn2);
 
+    const topText = await screen.findByTestId('0-horizontal-top-text');
+    expect(topText).toBeInTheDocument();
+
+    const shareHorizontalFav2 = await screen.findByTestId('0-horizontal-share-btn');
+    userEvent.click(shareHorizontalFav2);
+
+    screen.debug();
+
     const favHorizontalFav = await screen.findByTestId('0-horizontal-favorite-btn');
     userEvent.click(favHorizontalFav);
+
+    expect(topText).not.toBeInTheDocument();
+    expect(shareHorizontalFav2).not.toBeInTheDocument();
   });
 
   test('testa favoriteRecipes sem receita', async () => {

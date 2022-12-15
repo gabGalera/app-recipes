@@ -39,7 +39,8 @@ function FavAndShareBtnMeals() {
           ? blackHeartIcon
           : whiteHeartIcon }
         onClick={ () => {
-          let newFavoriteRecipes = [].concat(favoriteRecipes);
+          let newFavoriteRecipes = [];
+          newFavoriteRecipes = [...favoriteRecipes];
           if (favoriteRecipes.some((entry) => entry.id === API[0].idMeal)) {
             newFavoriteRecipes = newFavoriteRecipes
               .filter((entry) => entry.id !== API[0].idMeal);

@@ -37,8 +37,10 @@ function FavAndShareBtnDrinks() {
           ? blackHeartIcon
           : whiteHeartIcon }
         onClick={ () => {
-          let newFavoriteRecipes = [].concat(favoriteRecipes);
+          let newFavoriteRecipes = [];
+          newFavoriteRecipes = [...favoriteRecipes];
           if (favoriteRecipes.some((entry) => entry.id === API[0].idDrink)) {
+            console.log('hey');
             newFavoriteRecipes = newFavoriteRecipes
               .filter((entry) => entry.id !== API[0].idDrink);
             setFavoriteRecipes(newFavoriteRecipes);
@@ -47,6 +49,7 @@ function FavAndShareBtnDrinks() {
               JSON.stringify(newFavoriteRecipes),
             );
           } else {
+            console.log('yo!');
             newFavoriteRecipes.push({
               id: API[0].idDrink,
               type: 'drink',
