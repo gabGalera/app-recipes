@@ -19,6 +19,7 @@ describe('User experience', () => {
   const profileBtnStr = 'profile-top-btn';
   const searchInput = 'search-input';
   const execButton = 'exec-search-btn';
+  const horShareBtn = '0-horizontal-share-btn';
 
   jest.setTimeout(32000);
   let finalPath = [];
@@ -166,7 +167,7 @@ describe('User experience', () => {
       { timeout: 10000 },
     );
 
-    const shareHorizontal = await screen.findByTestId('0-horizontal-share-btn');
+    const shareHorizontal = await screen.findByTestId(horShareBtn);
     userEvent.click(shareHorizontal);
 
     const userBtn = await screen.findByTestId(profileBtnStr);
@@ -177,7 +178,7 @@ describe('User experience', () => {
     const gg = await screen.findByTestId('0-horizontal-name');
     expect(gg).toBeInTheDocument();
 
-    const shareHorizontalFav = await screen.findByTestId('0-horizontal-share-btn');
+    const shareHorizontalFav = await screen.findByTestId(horShareBtn);
     userEvent.click(shareHorizontalFav);
 
     userEvent.click(gg);
@@ -220,7 +221,7 @@ describe('User experience', () => {
     const topText = await screen.findByTestId('0-horizontal-top-text');
     expect(topText).toBeInTheDocument();
 
-    const shareHorizontalFav2 = await screen.findByTestId('0-horizontal-share-btn');
+    const shareHorizontalFav2 = await screen.findByTestId(horShareBtn);
     userEvent.click(shareHorizontalFav2);
 
     screen.debug();

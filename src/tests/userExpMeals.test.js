@@ -12,6 +12,7 @@ describe('User experience', () => {
   const profileBtnStr = 'profile-top-btn';
   const cardImg0 = '0-card-img';
   const favoriteBtn = 'favorite-btn';
+  const profileFavBtn = 'profile-favorite-btn';
 
   jest.setTimeout(32000);
 
@@ -125,7 +126,7 @@ describe('User experience', () => {
     const userBtn = await screen.findByTestId(profileBtnStr);
     userEvent.click(userBtn);
 
-    const favBtn = await screen.findByTestId('profile-favorite-btn');
+    const favBtn = await screen.findByTestId(profileFavBtn);
     userEvent.click(favBtn);
     const corbaRecipe = await screen.findByTestId('0-horizontal-name');
     expect(corbaRecipe).toBeInTheDocument();
@@ -206,20 +207,20 @@ describe('User experience', () => {
 
     userEvent.click(await screen.findByTestId(profileBtnStr));
 
-    userEvent.click(await screen.findByTestId('profile-favorite-btn'));
+    userEvent.click(await screen.findByTestId(profileFavBtn));
     // userEvent.click(await screen.findByTestId('0-horizontal-favorite-btn'));
     userEvent.click(await screen.findByTestId('filter-by-all-btn'));
     userEvent.click(await screen.findByTestId('filter-by-meal-btn'));
     userEvent.click(await screen.findByTestId('filter-by-drink-btn'));
 
-    userEvent.click(screen.getByTestId('filter-by-all-btn'));
-    userEvent.click(screen.getByTestId('filter-by-meal-btn'));
-    userEvent.click(screen.getByTestId('filter-by-drink-btn'));
+    // userEvent.click(screen.getByTestId('filter-by-all-btn'));
+    // userEvent.click(screen.getByTestId('filter-by-meal-btn'));
+    // userEvent.click(screen.getByTestId('filter-by-drink-btn'));
 
     const userBtn2 = await screen.findByTestId(profileBtnStr);
     userEvent.click(userBtn2);
 
-    const favBtn2 = await screen.findByTestId('profile-favorite-btn');
+    const favBtn2 = await screen.findByTestId(profileFavBtn);
     userEvent.click(favBtn2);
 
     screen.debug();
