@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/Login.module.css';
+import pageLogo from '../images/logoRecipesApp.svg';
+import tomate from '../images/tomate.svg';
 
 export default class Login extends Component {
   state = {
@@ -38,34 +41,74 @@ export default class Login extends Component {
     const { email, password, buttonDisabled } = this.state;
     const { handleChange, handleClick } = this;
     return (
-      <form>
-        <input
-          type="email"
-          name="email"
-          value={ email }
-          id="email-input"
-          placeholder="Digite seu email"
-          data-testid="email-input"
-          onChange={ handleChange }
-        />
-        <input
-          type="password"
-          name="password"
-          value={ password }
-          id="passoword-input"
-          placeholder="Digite sua senha"
-          data-testid="password-input"
-          onChange={ handleChange }
-        />
-        <button
-          data-testid="login-submit-btn"
-          type="submit"
-          onClick={ handleClick }
-          disabled={ buttonDisabled }
+      <form
+        style={ {
+          display: 'flex',
+          height: '100vh',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: '#41197F',
+        } }
+      >
+        <div
+          className={ styles.logo__div }
         >
-          Enter
-        </button>
+          <img
+            className={ styles.img__logo }
+            src={ pageLogo }
+            alt="page logo"
+          />
+        </div>
+        <div
+          style={ {
+            width: '100%',
+            maxWidth: '1024px',
+            zIndex: '1',
+          } }
+        >
+          <img
+            className={ styles.img__tomato }
+            src={ tomate }
+            alt="três tomates e um alface"
+          />
+        </div>
+        <div
+          className={ styles.input__btn__div }
+        >
+          <p className={ styles.title }><em>Login</em></p>
+          <input
+            className={ styles.inputs }
+            type="email"
+            name="email"
+            value={ email }
+            id="email-input"
+            placeholder="Digite seu email"
+            data-testid="email-input"
+            onChange={ handleChange }
+          />
+          <input
+            className={ styles.inputs }
+            type="password"
+            name="password"
+            value={ password }
+            id="passoword-input"
+            placeholder="Digite sua senha"
+            data-testid="password-input"
+            onChange={ handleChange }
+          />
+          <button
+            className={ styles.submit__btn }
+            data-testid="login-submit-btn"
+            type="submit"
+            onClick={ handleClick }
+            disabled={ buttonDisabled }
+          >
+            Enter
+          </button>
+        </div>
       </form>
+
     );
   }
 }

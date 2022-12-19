@@ -17,7 +17,6 @@ function DetailsInformationsMeals() {
 
   useEffect(() => {
     const inProgressRecipes = JSONInProgressRecipesReader;
-    console.log(inProgressRecipes[type][id]);
     if (inProgressRecipes[type][id] && isInProgress) {
       inProgressRecipes[type][id]
         .forEach((entry, index) => {

@@ -24,17 +24,17 @@ function Meals() {
     Dessert: imgDessert,
     Goat: imgGoat,
   };
-  const [firstTwelveReceive, setFirstTwelveReceive] = useState([]);
   const [allCategoryName, setAllCategoryName] = useState([]);
   const [nameOfTheLastCategory, setNameOfTheLastCategory] = useState('');
   const maxLength = 12;
   const maxLengthCategory = 5;
-  const componentDidMount = async () => {
-    setFirstTwelveReceive(await firstTwelveMealsApi());
-    setAllCategoryName(await allCategoryMealsApi());
-  };
   const resultSearch = useSelector((globalState) => globalState.searchBar.resultSearch);
   const dispatch = useDispatch();
+
+  const componentDidMount = async () => {
+    dispatch(resultSearchAction(await firstTwelveMealsApi()));
+    setAllCategoryName(await allCategoryMealsApi());
+  };
 
   useEffect(() => {
     componentDidMount();
@@ -43,14 +43,10 @@ function Meals() {
   const onClickFilter = async ({ target: { name } }) => {
     setNameOfTheLastCategory(name);
     if (name === 'all' || name === nameOfTheLastCategory) {
-      return setFirstTwelveReceive(await firstTwelveMealsApi());
+      return dispatch(resultSearchAction(await firstTwelveMealsApi()));
     }
-    setFirstTwelveReceive(await firstTwelveMealsByCategoryApi(name));
+    dispatch(resultSearchAction(await firstTwelveMealsByCategoryApi(name)));
   };
-
-  useEffect(() => {
-    dispatch(resultSearchAction(firstTwelveReceive));
-  }, [firstTwelveReceive]);
 
   return (
     <div

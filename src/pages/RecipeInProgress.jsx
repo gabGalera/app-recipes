@@ -11,6 +11,7 @@ import DetailsInformationsMeals from '../components/DetailsInformationsMeals';
 import FavAndShareBtnDrinks from '../components/FavAndShareBtnDrinks';
 import FavAndShareBtnMeals from '../components/FavAndShareBtnMeals';
 import { JSONDoneRecipesReader } from '../helpers/JSONReaders';
+import Loading from './Loading';
 
 function RecipeInProgress() {
   const API = useSelector((state) => state.recipeDetails.API);
@@ -41,7 +42,7 @@ function RecipeInProgress() {
     componentDidMount();
   }, []);
 
-  if (isLoadingMain || isLoadingRecommendation) return <h1>Loading...</h1>;
+  if (isLoadingMain || isLoadingRecommendation) return <Loading />;
 
   if (type === 'meals') {
     return (

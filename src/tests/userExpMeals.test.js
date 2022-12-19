@@ -208,14 +208,9 @@ describe('User experience', () => {
     userEvent.click(await screen.findByTestId(profileBtnStr));
 
     userEvent.click(await screen.findByTestId(profileFavBtn));
-    // userEvent.click(await screen.findByTestId('0-horizontal-favorite-btn'));
     userEvent.click(await screen.findByTestId('filter-by-all-btn'));
     userEvent.click(await screen.findByTestId('filter-by-meal-btn'));
     userEvent.click(await screen.findByTestId('filter-by-drink-btn'));
-
-    // userEvent.click(screen.getByTestId('filter-by-all-btn'));
-    // userEvent.click(screen.getByTestId('filter-by-meal-btn'));
-    // userEvent.click(screen.getByTestId('filter-by-drink-btn'));
 
     const userBtn2 = await screen.findByTestId(profileBtnStr);
     userEvent.click(userBtn2);

@@ -12,6 +12,7 @@ import FavAndShareBtnMeals from '../components/FavAndShareBtnMeals';
 import FavAndShareBtnDrinks from '../components/FavAndShareBtnDrinks';
 import StartAndContinueBtnDrinks from '../components/StartAndContinueBtnDrinks';
 import StartAndContinueBtnMeals from '../components/StartAndContinueBtnMeals';
+import Loading from './Loading';
 
 function RecipeDetails() {
   const [isLoadingMain, setIsLoadingMain] = useState(true);
@@ -40,7 +41,7 @@ function RecipeDetails() {
     componentDidMount();
   }, []);
 
-  if (isLoadingMain || isLoadingRecommendation) return <h1>Loading...</h1>;
+  if (isLoadingMain || isLoadingRecommendation) return <Loading />;
 
   if (pathname.split('/')[1] === 'meals') {
     return (
