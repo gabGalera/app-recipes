@@ -54,11 +54,11 @@
   width: 12rem;
 }
 
-@media ( max-width : 1000px ) {
+@media ( max-width : 500px ) {
 
   .img__input {
     height: 3.5rem;
-    width: 3rem;
+    width: 4rem;
   }
 
   .footer__input {

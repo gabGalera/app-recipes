@@ -147,7 +147,7 @@ function DoneRecipes() {
                   }
                 </div>
               </div>
-              <div className={ styles.divDone }>
+              <div className={ styles.div__done }>
                 <input
                   className={ styles.share__btn }
                   src={ shareIcon }
